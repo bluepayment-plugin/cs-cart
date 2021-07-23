@@ -41,4 +41,18 @@ Istnieje jeszcze jedna metoda zablokowania możliwości utworzenia zamówienia c
 
 ![Wyklucz produkt z zakupów cyklicznych](https://user-images.githubusercontent.com/87177993/126763771-35ca0234-3489-4029-83a9-486cca348cad.png)
 
+Więcej informacji o zamówieniach cyklicznych znajduje się w rozdziale "Działanie dodatku" -> "Zamówienia cykliczne". 
+
+### Ustawienia metody płatności 
+
+Po instalacji dodatku zostaną automatycznie utworzone i wstępnie skonfigurowane trzy nowe metody płatności: „System płatności BlueMedia”, „Apple Pay” oraz „Płatność BLIK”. Aby stały się one dostępne w sklepie, konieczne jest dokończenie ich konfiguracji. 
+
+W panelu administracyjnym przechodzimy do sekcji Metody płatności (menu: **Administracja / Metody płatności**), a następnie klikamy w nazwę metody płatności. 
+
+![Metody płatności](https://user-images.githubusercontent.com/87177993/126764249-7c1c43e7-743d-4745-b279-e618a708496c.jpg)
+
+ Wyświetli się nowa strona z konfiguracją płatności. Przechodzimy w niej do zakładki „**Konfiguruj**”, gdzie możemy dokonać szczegółowych ustawień bramki płatności. 
+ 
+ ![Konfiguruj](https://user-images.githubusercontent.com/87177993/126764431-131d4212-8937-47e0-935b-859a783288ee.jpg)
+
 
