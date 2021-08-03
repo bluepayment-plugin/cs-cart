@@ -2,7 +2,9 @@
 
 ## Podstawowe informacje
 
-Wymagania systemowe 
+Jeżeli jeszcze nie masz wtyczki, możesz ją pobrać [tutaj.](https://github.com/bluepayment-plugin/cs-cart/archive/refs/heads/main.zip)
+
+### Wymagania systemowe 
 Do prawidłowego działania dodatku potrzebna jest odpowiednia konfiguracja modułów PHP na serwerze, na którym jest zainstalowany CS-Cart. Dodatek wymaga aktywacji następujących rozszerzeń: 
 - xmlWriter 
 - xmlReader 
@@ -21,7 +23,7 @@ Zostanie wyświetlone nowe okno popup, w którym należy kliknąć w przycisk **
 
  Po zainstalowaniu dodatku odnajdujemy go na liście dostępnych modułów i, wybierając z sekcji narzędzi opcję **Ustawienia**, konfigurujemy dodatek oraz go aktywujemy. 
  
- ## Konfiguracja dodatku 
+## Konfiguracja dodatku 
 
 ### Ustawienia ogólne dodatku 
 
