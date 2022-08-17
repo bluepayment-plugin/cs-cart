@@ -39,6 +39,7 @@ define('BLUEMEDIA_HEADER_PRE_TRANSACTION', 'pay-bm-continue-transaction-url');
 // gateways
 define('BLUEMEDIA_GATEWAY_ID_TEST', 106);
 define('BLUEMEDIA_GATEWAY_ID_BLIK0', 509);
+define('BLUEMEDIA_GATEWAY_ID_APPLE_PAY', 1513);
 define('BLUEMEDIA_GATEWAY_ID_RECURRING', 1503);
 
 // write to logs

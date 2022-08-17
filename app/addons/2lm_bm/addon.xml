@@ -2,8 +2,8 @@
 <addon scheme="2.0">
     <id>2lm_bm</id>
     <name>2LM: BlueMedia Payment Gateway</name>
-    <description><![CDATA[BlueMedia Payment Gateway. Copyright &copy;&nbsp;<strong><a href="http://2lm.pl" target="_blank">2LM Sp. z o.o.</a></strong>]]></description>
-    <version>2.0</version>
+    <description><![CDATA[BlueMedia Payment Gateway. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></description>
+    <version>2.7</version>
     <priority>1</priority>
     <position>2</position>
     <status>disabled</status>
@@ -11,28 +11,28 @@
 
     <translations>
         <item for="name" lang="pl">2LM: System Płatności BlueMedia</item>
-        <item for="description" lang="pl"><![CDATA[Obsługa bramki płatności BlueMedia. Copyright &copy;&nbsp;<strong><a href="http://2lm.pl" target="_blank">2LM Sp. z o.o.</a></strong>]]></item>
+        <item for="description" lang="pl"><![CDATA[Obsługa bramki płatności BlueMedia. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></item>
     </translations>
 
     <authors>
         <author>
             <name>2LM Sp. z o.o.</name>
             <email>biuro@2lm.pl</email>
-            <url>http://www.2lm.pl</url>
+            <url>https://www.2lm.pl</url>
             <phone>+48-690-594-953</phone>
         </author>
     </authors>
 
     <supplier>2LM Sp. z o.o.</supplier>
-    <supplier_link>http://www.2lm.pl</supplier_link>
+    <supplier_link>https://www.2lm.pl</supplier_link>
 
     <language_variables>
         <item lang="en" id="privileges.manage_2lm_bm_refund">Addon 2LM: BlueMedia - refund</item>
         <item lang="pl" id="privileges.manage_2lm_bm_refund">Dodatek 2LM: BlueMedia - zwroty płatności</item>
         <item lang="en" id="2lm_bm">BlueMedia</item>
         <item lang="pl" id="2lm_bm">BlueMedia</item>
-        <item lang="en" id="2lm_bm_choose_onetime_payment_option">BlueMedia - Choose a one-time payment option</item>
-        <item lang="pl" id="2lm_bm_choose_onetime_payment_option">BlueMedia - wybierz jednorazową formę płatności</item>
+        <item lang="en" id="2lm_bm_choose_onetime_payment_option">BlueMedia - Choose payment channel</item>
+        <item lang="pl" id="2lm_bm_choose_onetime_payment_option">BlueMedia - wybierz kanał płatności</item>
         <item lang="en" id="2lm_bm_your_balance_is_not_enough">The value of your balance is not enough to make a refund. Please try again later.</item>
         <item lang="pl" id="2lm_bm_your_balance_is_not_enough">Wartość Twojego salda jest nie wystarczająca do zrealizowania zwrotu. Spróbuj proszę później.</item>
         <item lang="en" id="2lm_bm_description">Prefix for an order description</item>
@@ -51,16 +51,16 @@
         <item lang="pl" id="2lm_bm_status_ok_before_post_from_bm">Status, który jest ustawiany po zarejestrowaniu transakcji i powrocie z BlueMedia oraz gdy nie otrzymano jeszcze żadnej notyfikacji ITN</item>
         <item lang="en" id="2lm_bm_payment_title">The BlueMedia payment system</item>
         <item lang="pl" id="2lm_bm_payment_title">System płatności BlueMedia</item>
-        <item lang="en" id="2lm_bm_payment_description">Online payment through the system BlueMedia</item>
+        <item lang="en" id="2lm_bm_payment_description">Online payment by BlueMedia</item>
         <item lang="pl" id="2lm_bm_payment_description">Płatność internetowa za pośrednictwem systemu BlueMedia</item>
-        <item lang="en" id="2lm_bm_payment_instructions">Follow the posted instructions</item>
-        <item lang="pl" id="2lm_bm_payment_instructions">Postępuj zgodnie z zamieszczonymi wskazówkami</item>
         <item lang="en" id="2lm_bm_payment_blik_title">Payment by BLIK</item>
         <item lang="pl" id="2lm_bm_payment_blik_title">Płatność BLIK</item>
         <item lang="en" id="2lm_bm_payment_blik_description"></item>
         <item lang="pl" id="2lm_bm_payment_blik_description"></item>
-        <item lang="en" id="2lm_bm_payment_blik_instructions"></item>
-        <item lang="pl" id="2lm_bm_payment_blik_instructions"></item>
+        <item lang="en" id="2lm_bm_payment_apple_title">Apple Pay</item>
+        <item lang="pl" id="2lm_bm_payment_apple_title">Apple Pay</item>
+        <item lang="en" id="2lm_bm_payment_apple_description">Online payment by Apple Pay</item>
+        <item lang="pl" id="2lm_bm_payment_apple_description">Płatność internetowa za pośrednictwem systemu Apple Pay</item>
         <item lang="en" id="2lm_bm_transaction_status_pending">Transaction started</item>
         <item lang="pl" id="2lm_bm_transaction_status_pending">Transakcja rozpoczęta</item>
         <item lang="en" id="2lm_bm_transaction_status_success">Correct transaction authorization</item>
@@ -129,7 +129,6 @@
         <item lang="pl" id="2lm_bm_cannot_refund_money">Obecnie Twoje saldo wynosi [BALANCE_VALUE]. Nie można zrealizować teraz zwrotu. Spróbuj proszę później.</item>
         <item lang="en" id="2lm_bm_wrong_input_data">Incorrect input data</item>
         <item lang="pl" id="2lm_bm_wrong_input_data">Niepoprawne dane wejściowe</item>
-
         <item lang="en" id="2lm_bm_enter_blik_code">Enter the BLIK code</item>
         <item lang="pl" id="2lm_bm_enter_blik_code">Wprowadź kod BLIK</item>
         <item lang="en" id="2lm_bm_label_auto_order_create">Create a recurring order</item>
@@ -138,7 +137,6 @@
         <item lang="pl" id="2lm_bm_label_auto_order_pending">Stwórz z tego zamówienie cykliczne (w trakcie)</item>
         <item lang="en" id="2lm_bm_label_auto_order_deactivate">Deactivate recurring order</item>
         <item lang="pl" id="2lm_bm_label_auto_order_deactivate">Deaktywuj zamówienie cykliczne</item>
-
         <item lang="en" id="2lm_bm_exclude_from_recurring_purchases">Exclude product from recurring purchases</item>
         <item lang="pl" id="2lm_bm_exclude_from_recurring_purchases">Wyklucz produkt z zakupów cyklicznych</item>
         <item lang="en" id="2lm_bm_label_auto_order_translation_list">Recurring purchases - list of translations</item>
@@ -157,9 +155,8 @@
         <item lang="pl" id="2lm_bm_recurring_purchases">Zamówienie abonamentowe</item>
         <item lang="en" id="2lm_bm_suffix_recurring_purchases"> - recurring order</item>
         <item lang="pl" id="2lm_bm_suffix_recurring_purchases"> - zamówienie abonamentowe</item>
-        <item lang="en" id="2lm_bm_recurring_purchases_instructions"><br /><div style="width:100%;">Wybrałeś opcję utworzenia nowego zamówienia abonamentowego, bazującego na zamówieniu [LINK_TO_BASE_ORDER]<br /> TU CIĄG DALSZY OPISU... wzmianka o regulaminie itp...<br /> Jeśli chcesz zrezygnować z tej opcji kliknij tutaj: [LINK_TO_CLEAR_CART]</div></item>
-        <item lang="pl" id="2lm_bm_recurring_purchases_instructions"><br /><div style="width:100%;">Wybrałeś opcję utworzenia nowego zamówienia abonamentowego, bazującego na zamówieniu [LINK_TO_BASE_ORDER]<br /> TU CIĄG DALSZY OPISU... wzmianka o regulaminie itp...<br /> Jeśli chcesz zrezygnować z tej opcji kliknij tutaj: [LINK_TO_CLEAR_CART]</div></item>
-
+        <item lang="en" id="2lm_bm_recurring_purchases_instructions"><![CDATA[<br /><div style="width:100%;">You have chosen the option to create a new subscription order, based on the order [LINK_TO_BASE_ORDER] <br /> HERE IS FURTHER DESCRIPTION ... mention of the regulations, etc ... <br /> If you want to cancel this option, click here: [LINK_TO_CLEAR_CART]</div>]]></item>
+        <item lang="pl" id="2lm_bm_recurring_purchases_instructions"><![CDATA[<br /><div style="width:100%;">Wybrałeś opcję utworzenia nowego zamówienia abonamentowego, bazującego na zamówieniu [LINK_TO_BASE_ORDER]<br /> TU CIĄG DALSZY OPISU... wzmianka o regulaminie itp...<br /> Jeśli chcesz zrezygnować z tej opcji kliknij tutaj: [LINK_TO_CLEAR_CART]</div>]]></item>
         <item lang="en" id="2lm_bm_blik_wrong_code_error_msg">Wygląda na to, iż procesor płatności odrzucił transakcję (możliwa przyczyna - niewłaściwy kod BLIK).<br />Złóż ponownie zamówienie używając poprawnego kodu.</item>
         <item lang="pl" id="2lm_bm_blik_wrong_code_error_msg">Wygląda na to, iż procesor płatności odrzucił transakcję (możliwa przyczyna - niewłaściwy kod BLIK).<br />Złóż ponownie zamówienie używając poprawnego kodu.</item>
         <item lang="pl" id="2lm_bm_urls">Adresy URL do konfiguracji bramki płatności</item>
@@ -172,6 +169,8 @@
         <item lang="en" id="2lm_bm_url_rpan">The URL to which RPAN is sent</item>
         <item lang="pl" id="2lm_bm_url_rpdn">Adres, na który jest wysyłany komunikat RPDN</item>
         <item lang="en" id="2lm_bm_url_rpdn">The URL to which RPDN is sent</item>
+        <item lang="pl" id="2lm_bm_pbl">Płatność z banku</item>
+        <item lang="en" id="2lm_bm_pbl">Payment from the bank</item>
     </language_variables>
 
     <settings edition_type="ROOT,ULT:VENDOR">

@@ -23,21 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $_order_id = end($cart['processed_order_id']);
-            /*$_payment_info = db_get_field(
-                'SELECT data FROM ?:order_data WHERE order_id = ?i AND type = ?s', $_order_id, 'P'
-            );
-            $_payment_info = !empty($_payment_info) ? unserialize(fn_decrypt_text($_payment_info)) : [];
-
-            if (!empty($_payment_info['remoteID']) && !empty($_payment_info['reason_text']) && is_bluemedia_payment()) {
-                $bm_statuses = fn_2lm_bm_get_bluemedia_payment_statuses();
-                if (in_array($_payment_info['paymentStatus'], $bm_statuses)) {
-                    unset($cart['processed_order_id']);
-                    if (isset($cart['failed_order_id'])) {
-                        unset($cart['failed_order_id']);
-                    }
-                }
-            }
-            */
             $_payment_id = db_get_field(
                 'SELECT payment_id FROM ?:orders WHERE order_id = ?i', $_order_id
             );

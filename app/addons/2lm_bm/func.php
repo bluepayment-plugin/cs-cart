@@ -55,18 +55,17 @@ function fn_2lm_bm_install()
         'addon' => '2lm_bm'
     ));
 
-    $pid = fn_2lm_create_bm_payment_method($id, $company_id);
-    $pblikid = fn_2lm_create_bm_payment_method($id, $company_id, true);
+    $id_arr[] = fn_2lm_create_bm_payment_method($id, $company_id, '');
+    $id_arr[] = fn_2lm_create_bm_payment_method($id, $company_id, 'blik');
+    $id_arr[] = fn_2lm_create_bm_payment_method($id, $company_id, 'apple');
 
     if (fn_allowed_for('ULTIMATE')) {
-        db_query(
-            "INSERT INTO ?:ult_objects_sharing (share_company_id, share_object_id, share_object_type) VALUES (?i, ?i, 'payments');",
-            $company_id, $pid
-        );
-        db_query(
-            "INSERT INTO ?:ult_objects_sharing (share_company_id, share_object_id, share_object_type) VALUES (?i, ?i, 'payments');",
-            $company_id, $pblikid
-        );
+        foreach($id_arr as $_id) {
+            db_query(
+                "INSERT INTO ?:ult_objects_sharing (share_company_id, share_object_id, share_object_type) VALUES (?i, ?i, 'payments');",
+                $company_id, $_id
+            );
+        }
     }
 }
 
@@ -76,7 +75,7 @@ function fn_2lm_bm_install()
  * @param bool $blik
  * @return mixed
  */
-function fn_2lm_create_bm_payment_method($id, $company_id, $blik = false)
+function fn_2lm_create_bm_payment_method($id, $company_id, $gateway)
 {
     $pid = db_query('INSERT INTO ?:payments ?e', array(
         'company_id' => $company_id,
@@ -85,7 +84,7 @@ function fn_2lm_create_bm_payment_method($id, $company_id, $blik = false)
         'status' => 'A',
         'template' => 'addons/2lm_bm/views/orders/components/payments/bluemedia.tpl',
         'processor_id' => $id,
-        'processor_params' => '',
+        'processor_params' => ($gateway == 'apple' ? serialize(['gateway_id' => BLUEMEDIA_GATEWAY_ID_APPLE_PAY]) : ''),
         'a_surcharge' => 0.0,
         'p_surcharge' => 0.0,
         'tax_ids' => '',
@@ -100,18 +99,12 @@ function fn_2lm_create_bm_payment_method($id, $company_id, $blik = false)
         'instructions' => '',
         'surcharge_title' => '',
     ];
-
+    if (!empty($gateway)) {
+        $gateway .= '_';
+    }
     foreach (Languages::getAll() as $data['lang_code'] => $_v) {
-        if ($blik) {
-            $data['payment'] = __('2lm_bm_payment_title', null, $data['lang_code']);
-            $data['description'] = __('2lm_bm_payment_description', null, $data['lang_code']);
-            $data['instructions'] = __('2lm_bm_payment_instructions', null, $data['lang_code']);
-        } else {
-            $data['payment'] = __('2lm_bm_payment_blik_title', null, $data['lang_code']);
-            $data['description'] = __('2lm_bm_payment_blik_description', null, $data['lang_code']);
-            $data['instructions'] = __('2lm_bm_payment_blik_instructions', null, $data['lang_code']);
-        }
-
+        $data['payment'] = __('2lm_bm_payment_' . $gateway . 'title', null, $data['lang_code']);
+        $data['description'] = __('2lm_bm_payment_' . $gateway . 'description', null, $data['lang_code']);
         db_query('INSERT INTO ?:payment_descriptions ?e', $data);
     }
 
@@ -123,17 +116,12 @@ function fn_2lm_create_bm_payment_method($id, $company_id, $blik = false)
  */
 function fn_2lm_bm_uninstall()
 {
-    $payment_data = db_get_row(
-        'SELECT pp.processor_id, p.payment_id FROM ?:payment_processors AS pp ' .
-        'INNER JOIN ?:payments AS p ON pp.processor_id = p.processor_id ' .
-        'WHERE pp.processor = ?s', 'BlueMedia'
-    );
-
-    if (!empty($payment_data)) {
-        db_query('DELETE FROM ?:payment_processors WHERE processor_id = ?i', $payment_data['processor_id']);
-        db_query('DELETE FROM ?:payment_descriptions WHERE payment_id = ?i', $payment_data['payment_id']);
-        db_query('DELETE FROM ?:payments WHERE payment_id = ?i', $payment_data['payment_id']);
+    db_query("DELETE FROM ?:payment_descriptions WHERE payment_id IN (SELECT payment_id FROM ?:payments WHERE processor_id IN (SELECT processor_id FROM ?:payment_processors WHERE processor_script = 'bm.php'))");
+    if (fn_allowed_for('ULTIMATE')) {
+        db_query("DELETE FROM ?:ult_objects_sharing WHERE share_object_type = ?s AND share_object_id IN (SELECT payment_id FROM ?:payments WHERE processor_id IN (SELECT processor_id FROM ?:payment_processors WHERE processor_script = 'bm.php'))", 'payments');
     }
+    db_query("DELETE FROM ?:payments WHERE processor_id IN (SELECT processor_id FROM ?:payment_processors WHERE processor_script = 'bm.php')");
+    db_query("DELETE FROM ?:payment_processors WHERE processor_script = 'bm.php'");
 }
 
 /**
@@ -267,19 +255,19 @@ function fn_2lm_bm_get_bluemedia_payment_ids($exclude_blik = false)
 {
     if ($exclude_blik) {
         return db_get_fields(
-            'SELECT DISTINCT payment_id FROM ?:payment_processors ' .
-            'INNER JOIN ?:payments USING(processor_id) ' .
-            'INNER JOIN ?:payment_descriptions USING(payment_id) ' .
-            'WHERE processor = ?s AND ?:payments.status = ?s AND ?:payment_descriptions.payment NOT LIKE ?s ' .
-            'ORDER BY processor_id DESC', 'BlueMedia', 'A', '%BLIK%'
+            'SELECT ?:payments.payment_id FROM ?:payments ' .
+            'INNER JOIN ?:payment_processors ON ?:payments.processor_id = ?:payment_processors.processor_id ' .
+            'INNER JOIN ?:payment_descriptions ON ?:payment_descriptions.payment_id = ?:payments.payment_id AND ?:payment_descriptions.lang_code = ?s ' .
+            'WHERE ?:payment_processors.processor_script = ?s AND ?:payments.status = ?s AND ?:payment_descriptions.payment NOT LIKE ?s ' .
+            'ORDER BY ?:payments.processor_id DESC', CART_LANGUAGE, 'bm.php', 'A', '%BLIK%'
         );
     }
 
     return db_get_fields(
-        'SELECT payment_id FROM ?:payment_processors ' .
-        'INNER JOIN ?:payments USING(processor_id) ' .
-        'WHERE processor = ?s AND ?:payments.status = ?s ' .
-        'ORDER BY processor_id DESC', 'BlueMedia', 'A'
+        'SELECT ?:payments.payment_id FROM ?:payments ' .
+        'INNER JOIN ?:payment_processors ON ?:payments.processor_id = ?:payment_processors.processor_id ' .
+        'WHERE ?:payment_processors.processor_script = ?s AND ?:payments.status = ?s ' .
+        'ORDER BY ?:payments.processor_id DESC', 'bm.php', 'A'
     );
 }
 
@@ -443,7 +431,6 @@ function fn_2lm_bm_prepare_form_data_for_new_order_payment(array &$cart, $from_o
         'Currency' => strtoupper($order_info['secondary_currency']),
         'CustomerEmail' => $order_info['email'],
         'CustomerIP' => $customer_ip['host'],
-//        'Title' => 'CS-Cart Test title',
     ];
 
     if (!empty($from_order_id)) { // Dla płatności abonamentowych
@@ -746,8 +733,6 @@ function fn_2lm_bm_send_request($mode, $url_type, $data, $header_type = BLUEMEDI
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 
     $curl_response = curl_exec($curl);
-//    $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-//    $response = curl_getinfo($curl);
     curl_close($curl);
 
     fn_2lm_bm_is_error_response($curl_response);
@@ -874,11 +859,6 @@ function fn_2lm_bm_show_notify_status_data_for_rpdn(array $rpdnResponse, array $
     }
 
     $order_id = isset($order_info['order_id']) ? $order_info['order_id'] : 0;
-//    $transaction_order_id = $rpdnResponse['transaction']['orderID'];
-//    $hash = fn_2lm_bm_generate_hash($config_data, $rpdnResponse);
-//    $status = (!isset($status) && $rpdnResponse['hash'] === $hash && $order_id === $transaction_order_id) ?
-//        BLUEMEDIA_STATUS_CONFIRMED : BLUEMEDIA_STATUS_NOT_CONFIRMED;
-
     $client_hash = db_get_field('SELECT client_hash FROM ?:bluemedia_subscriptions WHERE order_id = ?i', $order_id);
     $status = (!isset($status) && isset($rpdnResponse['transactions']['recurringData']['clientHash'])
         && $rpdnResponse['transactions']['recurringData']['clientHash'] == $client_hash)
@@ -945,7 +925,7 @@ function fn_2lm_bm_is_bm_test_ip()
  */
 function fn_2lm_bm_security_check_ip($addon_settings)
 {
-    return; // tymczasowo wylaczamy
+    return; // not needed anymore
     if ($addon_settings['mode'] === 'sandbox' && !fn_2lm_bm_is_bm_test_ip()) {
         die('Sorry, Wrong IP!');
     }
@@ -1088,10 +1068,6 @@ function fn_2lm_bm_subscription_deactivate($processor_params, $order_id)
  */
 function fn_2lm_bm_get_order_subscriptions_data($order_id)
 {
-    if (!empty($order_id)) {
-        // TODO_RAV: pobierz dane dot. platnosci (najpierw stworzyc tabele i po kazdym pobraniu dopisywac dane)
-    }
-
     return [];
 }
 
@@ -1258,9 +1234,26 @@ function fn_2lm_bm_get_payments_post($params, &$payments)
     if (AREA == 'C') {
         $bm_payment_ids = fn_2lm_bm_get_bluemedia_payment_ids();
         foreach ($payments as $id => $payment) {
-            if (in_array($id, $bm_payment_ids) && $payment['processor_script'] == 'bm.php' && empty($payment['processor_params'])) {
+            if (in_array($id, $bm_payment_ids) && $payment['processor_script'] == 'bm.php' && (!isset($payment['processor_params']) || empty($payment['processor_params']))) {
                 unset($payments[$id]);
             }
+        }
+    }
+}
+
+/**
+ * @param $params
+ * @param $fields
+ * @param $join
+ * @param $order
+ * @param $condition
+ * @param $having
+ */
+function fn_2lm_bm_get_payments($params, &$fields, $join, $order, $condition, $having) {
+    if (AREA == 'C') {
+        $field = '?:payment_processors.processor_script AS processor_script';
+        if (!in_array($field, $fields)) {
+            $fields[] = $field;
         }
     }
 }
@@ -1299,4 +1292,22 @@ function fn_2lm_bm_update_payment_pre(&$payment_data, &$payment_id, &$lang_code,
 function fn_2lm_bm_is_bm_processor($processor_id = 0)
 {
     return (bool) db_get_field("SELECT 1 FROM ?:payment_processors WHERE processor_id = ?i AND addon = ?s", $processor_id, '2lm_bm');
+}
+
+/**
+ * @return array
+ */
+function fn_2lm_bm_get_gateway_ids()
+{
+    $gateway_ids = [];
+    $payments = db_get_fields("SELECT ?:payments.processor_params FROM ?:payments INNER JOIN ?:payment_processors ON ?:payments.processor_id = ?:payment_processors.processor_id WHERE ?:payment_processors.processor_script = ?s", 'bm.php');
+    foreach($payments as $pp) {
+        if (!empty($pp)) {
+            $pp = unserialize($pp);
+            if(!empty($pp['gateway_id'])){
+                $gateway_ids[] = $pp['gateway_id'];
+            }
+        }
+    }
+    return $gateway_ids;
 }

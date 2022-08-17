@@ -109,7 +109,7 @@ if (defined('PAYMENT_NOTIFICATION')) {
                         throw new Exception("Order status is not mapped for processor status " . $itnResponse['transactions']['transaction']['paymentStatus']);
                     }
 
-                    if ($pp_response['paymentStatus'] != 'SUCCESS') {
+                    if ($pp_response['paymentStatus'] !== 'SUCCESS') {
                         //sleep(10);
                         $valid_id = db_get_field("SELECT order_id FROM ?:order_data WHERE order_id = ?i AND type = 'S'", $order_id);
 
@@ -117,8 +117,8 @@ if (defined('PAYMENT_NOTIFICATION')) {
                         $payment_info = !empty($payment_info) ? unserialize(fn_decrypt_text($payment_info)) : [];
 
                         if (!empty($valid_id) &&
-                            (empty($payment_info['paymentStatus']) || $payment_info['paymentStatus'] != 'SUCCESS') &&
-                            $order_info['status'] != 'I'
+                            (empty($payment_info['paymentStatus']) || $payment_info['paymentStatus'] !== 'SUCCESS') &&
+                            $order_info['status'] !== 'I'
                         ) {
                             fn_update_order_payment_info($order_id, $pp_response);
                             fn_change_order_status($order_id, $pp_response['order_status']);
