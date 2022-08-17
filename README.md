@@ -39,7 +39,7 @@ Kolejną zakładką w konfiguracji dodatku jest zakładka „**Zamówienia cykli
 
 Pierwsza z opcji umożliwia globalne włączenie bądź wyłączenie funkcjonalności zamówień abonamentowych. Druga opcja („**Wyłącz dla zamówień ze zniżkami (promocjami)**”) uniemożliwia stworzenie zamówienia cyklicznego na podstawie złożonego już zamówienia, w którym – ze względu np. na reguły zastosowanych promocji – ceny produktów nie są cenami standardowymi. 
 
-Istnieje jeszcze jedna metoda zablokowania możliwości utworzenia zamówienia cyklicznego. Jeśli nie chcemy, aby jakiś produkt kupiony przez Klienta mógł być objęty zamówieniem abonamentowym, możemy wykluczyć go z tej możliwości edytując dany produkt. Wystarczy na stronie edycji produktu w zakładce „**Dodatki**” ustawić w sekcji „Blue Media” wartość pola „**Wyklucz produkt z zakupów cyklicznych**” na „**Nie**”. Jeśli ów produkt znajdzie się w dowolnym zamówieniu, nie będzie dostępna opcja stworzenia zamówienia cyklicznego. 
+Istnieje jeszcze jedna metoda zablokowania możliwości utworzenia zamówienia cyklicznego. Jeśli nie chcemy, aby jakiś produkt kupiony przez Klienta mógł być objęty zamówieniem abonamentowym, możemy wykluczyć go z tej możliwości edytując dany produkt. Wystarczy na stronie edycji produktu w zakładce „**Dodatki**” ustawić w sekcji „Blue Media” wartość pola „**Wyklucz produkt z zakupów cyklicznych**” na „**Tak**”. Jeśli ów produkt znajdzie się w dowolnym zamówieniu, nie będzie dostępna opcja stworzenia zamówienia cyklicznego. 
 
 ![Wyklucz produkt z zakupów cyklicznych](https://user-images.githubusercontent.com/87177993/126763771-35ca0234-3489-4029-83a9-486cca348cad.png)
 
