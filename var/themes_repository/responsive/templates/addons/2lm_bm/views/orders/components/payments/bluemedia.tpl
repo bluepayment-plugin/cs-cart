@@ -28,9 +28,10 @@
             <div id="bluemedia-gateways" class="bm-form-banks">
 
                 <div class="bm-form-banks-group">
-                    {if $bluemedia_group_by_type == 'N'}
 
-                        {foreach from=$bluemedia_gateways item=gateway name=bmpayment}
+                    {if $payment.bluemedia_group_by_type == 'N'}
+
+                        {foreach from=$payment.bluemedia_gateways item=gateway name=bmpayment}
                             {if !($gateway.gatewayID|in_array:$gateway_ids)}
                             <div class="bm-form-banks-item" data-id="{$gateway.gatewayID}">
                                 <div class="bm-form-banks-item-logo">
@@ -43,7 +44,7 @@
 
                     {else}
 
-                        {foreach from=$bluemedia_gateways item=ggroup key=gtype name=bmgatewaygroup}
+                        {foreach from=$payment.bluemedia_gateways item=ggroup key=gtype name=bmgatewaygroup}
                             {assign var="is_not_empty" value=false}
                             {foreach from=$ggroup item=gateway name=bmpayment}
                                 {if !($gateway.gatewayID|in_array:$gateway_ids)}{assign var="is_not_empty" value=true}{break}{/if}

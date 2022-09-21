@@ -19,6 +19,7 @@ define('BLUEMEDIA_PAYMENT_ACTON_CONFIRMATION', '/confirmation/payment');
 define('BLUEMEDIA_PAYMENT_ACTON_DEACTIVATE', '/deactivate_recurring');
 define('BLUEMEDIA_PAYMENT_ACTON_PAYMENT', '/payment');
 define('BLUEMEDIA_PAYMENT_ACTON_PAYWAY_LIST', '/paywayList');
+define('BLUEMEDIA_PAYMENT_ACTON_GATEWAY_LIST', '/gatewayList/v2');
 define('BLUEMEDIA_PAYMENT_ACTON_REFUND', '/transactionRefund');
 define('BLUEMEDIA_PAYMENT_ACTON_SECURE', '/secure');
 define('BLUEMEDIA_PAYMENT_ACTON_START_TRAN', '/startTran');

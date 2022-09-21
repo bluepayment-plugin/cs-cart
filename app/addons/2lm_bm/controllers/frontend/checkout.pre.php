@@ -67,7 +67,8 @@ if ($mode === 'checkout') {
 
         if ($bm_settings['allow_select_gateway'] === 'Y' && in_array($payment_id, $bm_payment_ids)) {
             $gateways = [];
-            $payway_list = fn_2lm_bm_do_payway_list($payment_id);
+
+            $payway_list = fn_2lm_bm_get_gateways($payment_id);
 
             if (!fn_2lm_bm_is_blik_payment($payment_id)) {
                 fn_2lm_bm_remove_blik_item($payway_list);

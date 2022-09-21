@@ -16,7 +16,7 @@ if ($mode === 'details') {
 
         if ($bm_settings['allow_select_gateway'] === 'Y' && in_array($_REQUEST['payment_id'], $bm_payment_ids)) {
             $gateways = [];
-            $payway_list = fn_2lm_bm_do_payway_list($_REQUEST['payment_id']);
+            $payway_list = fn_2lm_bm_get_gateways($_REQUEST['payment_id']);
 
             if ($bm_settings['group_by_type'] === 'Y') {
                 $grouped_gateways = [];

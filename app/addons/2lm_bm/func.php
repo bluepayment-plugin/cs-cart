@@ -425,7 +425,11 @@ function fn_2lm_bm_prepare_form_data_for_new_order_payment(array &$cart, $from_o
     $form_data = [
         'ServiceID' => $payment_data['processor_params']['service_id'],
         'OrderID' => $order_id,
-        'Amount' => fn_2lm_bm_format_amount($order_info['total']),
+        'Amount' => fn_2lm_bm_format_price_by_currency(
+            $order_info['total'],
+            CART_PRIMARY_CURRENCY,
+            $order_info['secondary_currency']
+        ),
         'Description' => fn_2lm_bm_format_description($order_description),
         'GatewayID' => $gateway_id,
         'Currency' => strtoupper($order_info['secondary_currency']),
@@ -447,6 +451,25 @@ function fn_2lm_bm_prepare_form_data_for_new_order_payment(array &$cart, $from_o
     }
 
     return $form_data;
+}
+
+/**
+ * Converts price from once currency to other
+ *
+ * @param float  $price         value to be converted
+ * @param string $currency_from in what currency did we get the value
+ * @param string $currency_to   in what currency should we send the result
+ *
+ * @return float converted value
+ */
+function fn_2lm_bm_format_price_by_currency($price, $currency_from = CART_PRIMARY_CURRENCY, $currency_to = CART_SECONDARY_CURRENCY)
+{
+    return number_format(
+        (float)fn_format_price_by_currency($price, $currency_from, $currency_to),
+        2,
+        '.',
+        ''
+    );
 }
 
 /**
@@ -528,6 +551,7 @@ function fn_2lm_bm_get_action_url($mode, $action)
         case BLUEMEDIA_PAYMENT_ACTON_DEACTIVATE:
         case BLUEMEDIA_PAYMENT_ACTON_PAYMENT:
         case BLUEMEDIA_PAYMENT_ACTON_PAYWAY_LIST:
+        case BLUEMEDIA_PAYMENT_ACTON_GATEWAY_LIST:
         case BLUEMEDIA_PAYMENT_ACTON_REFUND:
         case BLUEMEDIA_PAYMENT_ACTON_SECURE:
         case BLUEMEDIA_PAYMENT_ACTON_START_TRAN:
@@ -646,6 +670,43 @@ function fn_2lm_bm_do_payway_list($payment_id)
 }
 
 /**
+ * Get a gateway list data.
+ *
+ * @param int $payment_id
+ *
+ * @return array
+ */
+function fn_2lm_bm_do_gateway_list($payment_id)
+{
+    if (empty($payment_id)) {
+        return [];
+    }
+
+    $processor_params = fn_2lm_bm_get_processor_params($payment_id);
+    if (empty($processor_params)) {
+        return [];
+    }
+    $data = [
+        'ServiceID' => $processor_params['service_id'],
+        'MessageID' => md5(time()),
+        'Currencies' => CART_SECONDARY_CURRENCY
+    ];
+    fn_2lm_bm_generate_and_add_hash($processor_params, $data);
+    $response_data = fn_2lm_bm_send_request(
+        $processor_params['mode'],
+        BLUEMEDIA_PAYMENT_ACTON_GATEWAY_LIST,
+        $data,
+        BLUEMEDIA_HEADER_TRANSACTION,
+        true
+    );
+
+    $response_data->gateway = $response_data->gatewayList;
+    unset($response_data->gatewayList);
+
+    return (array)$response_data;
+}
+
+/**
  * Starts transaction in background.
  *
  * @param array $config_data
@@ -713,20 +774,33 @@ function fn_2lm_bm_get_balance(array $config_data, $header_type = BLUEMEDIA_HEAD
 /**
  * Send a request to the BM service.
  *
- * @param string $mode
+ * @param string $mode Live or Test
  * @param string $url_type
- * @param mixed $data
+ * @param mixed  $data
  * @param string $header_type
+ * @param bool   $use_json Czy dane request'u powinny być wysłane jako json
  *
  * @return array
  */
-function fn_2lm_bm_send_request($mode, $url_type, $data, $header_type = BLUEMEDIA_HEADER_TRANSACTION)
+function fn_2lm_bm_send_request($mode, $url_type, $data, $header_type = BLUEMEDIA_HEADER_TRANSACTION, $use_json = false)
 {
-    $fields = is_array($data) ? http_build_query($data) : $data;
     $bm_url = fn_2lm_bm_get_action_url($mode, $url_type);
 
+    $header = ['BmHeader: ' . $header_type];
+    if ($use_json) {
+        $header = array_merge($header, ['Content-Type: application/json']);
+        $header = array_merge($header, ['Cache-Control: no-cache', 'Pragma: no-cache']);
+        $header[] = 'Content-Type: application/json';
+        $header[] = 'Cache-Control: no-cache';
+        $header[] = 'Pragma: no-cache';
+
+        $fields = is_array($data) ? json_encode($data) : $data;
+    } else {
+        $fields = is_array($data) ? http_build_query($data) : $data;
+    }
+
     $curl = curl_init($bm_url);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, ['BmHeader: ' . $header_type]);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $fields);
     curl_setopt($curl, CURLOPT_POST, 1);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -734,6 +808,10 @@ function fn_2lm_bm_send_request($mode, $url_type, $data, $header_type = BLUEMEDI
 
     $curl_response = curl_exec($curl);
     curl_close($curl);
+
+    if ($use_json) {
+        return json_decode($curl_response);
+    }
 
     fn_2lm_bm_is_error_response($curl_response);
 
@@ -1231,26 +1309,70 @@ function fn_2lm_bm_get_processor_params($payment_id)
  */
 function fn_2lm_bm_get_payments_post($params, &$payments)
 {
-    if (AREA == 'C') {
+    if (AREA === 'C') {
+        $bm_settings = Registry::get('addons.2lm_bm');
+
         $bm_payment_ids = fn_2lm_bm_get_bluemedia_payment_ids();
         foreach ($payments as $id => $payment) {
-            if (in_array($id, $bm_payment_ids) && $payment['processor_script'] == 'bm.php' && (!isset($payment['processor_params']) || empty($payment['processor_params']))) {
+            $bm_first_cond = in_array($id, $bm_payment_ids) && $payment['processor_script'] === 'bm.php';
+
+            if ($bm_first_cond && (!isset($payment['processor_params']) || empty($payment['processor_params']))) {
                 unset($payments[$id]);
+            }
+            if ($bm_first_cond && !empty($payment['processor_params'])) {
+                $gateway = fn_2lm_bm_get_gateways($id);
+                if (empty($gateway['hash'])) {
+                    unset($payments[$id]);
+                    continue;
+                }
+
+                $params = unserialize($payment['processor_params']);
+                if (empty($params['gateway'])) {
+                    if (empty($gateway['gateway'])) {
+                        unset($payments[$id]);
+                        continue;
+                    }
+                    $payments[$id]['gateway'] = $gateway['gateway'];
+
+                    if (!fn_2lm_bm_is_blik_payment($id)) {
+                        fn_2lm_bm_remove_blik_item($payments[$id]['gateway']);
+
+                        $gateways = [];
+                        if ($bm_settings['group_by_type'] === 'Y') {
+                            $grouped_gateways = [];
+                            if (isset($payments[$id]['gateway'])) {
+                                foreach ($payments[$id]['gateway'] as $_gateway) {
+                                    $grouped_gateways[(string)$_gateway->gatewayType][(int)$_gateway->gatewayID] = (array)$_gateway;
+                                }
+                            }
+                            $gateways = $grouped_gateways;
+                        } else {
+                            foreach ($payments[$id]['gateway'] as $_gateway) {
+                                $gateways[(int)$_gateway->gatewayID] = (array)$_gateway;
+                            }
+                        }
+
+                        $payments[$id]['bluemedia_group_by_type'] = $bm_settings['group_by_type'];
+                        $payments[$id]['bluemedia_gateways'] = $gateways;
+                    }
+                    unset($gateway);
+                }
+                unset($params);
             }
         }
     }
 }
 
 /**
- * @param $params
- * @param $fields
- * @param $join
+ * @param array  $params
+ * @param array  $fields
+ * @param string $join
  * @param $order
- * @param $condition
+ * @param string $condition
  * @param $having
  */
 function fn_2lm_bm_get_payments($params, &$fields, $join, $order, $condition, $having) {
-    if (AREA == 'C') {
+    if (AREA === 'C') {
         $field = '?:payment_processors.processor_script AS processor_script';
         if (!in_array($field, $fields)) {
             $fields[] = $field;
@@ -1272,8 +1394,8 @@ function fn_2lm_bm_update_payment_pre(&$payment_data, &$payment_id, &$lang_code,
         $src_type = !empty($_REQUEST["type_{$img_key}_image_icon"][0]) ? $_REQUEST["type_{$img_key}_image_icon"][0] : 'local';
         if (empty($payment_id)
             && (
-                $src_type == 'local' && empty($_FILES["file_{$img_key}_image_icon"]['name'][0])
-                || $src_type == 'server' && empty($_REQUEST["file_{$img_key}_image_icon"][0])
+                $src_type === 'local' && empty($_FILES["file_{$img_key}_image_icon"]['name'][0])
+                || $src_type === 'server' && empty($_REQUEST["file_{$img_key}_image_icon"][0])
             )
         ) {
             $_REQUEST["file_{$img_key}_image_icon"][0] = Registry::get('config.current_location') . fn_get_theme_path('/[relative]/media/images/addons/2lm_bm/logo_bm.png');
@@ -1291,7 +1413,11 @@ function fn_2lm_bm_update_payment_pre(&$payment_data, &$payment_id, &$lang_code,
  */
 function fn_2lm_bm_is_bm_processor($processor_id = 0)
 {
-    return (bool) db_get_field("SELECT 1 FROM ?:payment_processors WHERE processor_id = ?i AND addon = ?s", $processor_id, '2lm_bm');
+    return (bool) db_get_field(
+        'SELECT 1 FROM ?:payment_processors WHERE processor_id = ?i AND addon = ?s',
+        $processor_id,
+        '2lm_bm'
+    );
 }
 
 /**
@@ -1300,14 +1426,49 @@ function fn_2lm_bm_is_bm_processor($processor_id = 0)
 function fn_2lm_bm_get_gateway_ids()
 {
     $gateway_ids = [];
-    $payments = db_get_fields("SELECT ?:payments.processor_params FROM ?:payments INNER JOIN ?:payment_processors ON ?:payments.processor_id = ?:payment_processors.processor_id WHERE ?:payment_processors.processor_script = ?s", 'bm.php');
-    foreach($payments as $pp) {
+    $payments = db_get_fields(
+        "SELECT ?:payments.processor_params FROM ?:payments 
+         INNER JOIN ?:payment_processors ON ?:payments.processor_id = ?:payment_processors.processor_id 
+        WHERE ?:payment_processors.processor_script = ?s",
+        'bm.php'
+    );
+    foreach ($payments as $pp) {
         if (!empty($pp)) {
             $pp = unserialize($pp);
-            if(!empty($pp['gateway_id'])){
+            if (!empty($pp['gateway_id'])){
                 $gateway_ids[] = $pp['gateway_id'];
             }
         }
     }
     return $gateway_ids;
+}
+
+/**
+ * Pobierz listę dostępnych kanałów płatności.
+ * Pobrane wartości są zapisywane do cache (i doczytywane z niego)
+ *
+ * @param int $payment_id
+ *
+ * @return array|bool|mixed|string|null
+ */
+function fn_2lm_bm_get_gateways($payment_id) {
+    static $init_cache = false;
+    $cache_name = 'bm_gateway_list';
+    $key = CART_SECONDARY_CURRENCY . '_' . fn_crc32($payment_id . '_' . CART_SECONDARY_CURRENCY);
+
+    if (!$init_cache) {
+        Registry::registerCache($cache_name, [], Registry::cacheLevel('static'));
+        $init_cache = true;
+    }
+
+    $payway_list = Registry::get($cache_name . '.' . $key);
+    if (empty($payway_list)) {
+        $payway_list = fn_2lm_bm_do_gateway_list($payment_id);
+
+        if ($payway_list['result'] === 'OK') {
+            Registry::set($cache_name . '.' . $key, $payway_list);
+        }
+    }
+
+    return $payway_list;
 }
