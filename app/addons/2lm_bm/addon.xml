@@ -3,7 +3,7 @@
     <id>2lm_bm</id>
     <name>2LM: BlueMedia Payment Gateway</name>
     <description><![CDATA[BlueMedia Payment Gateway. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></description>
-    <version>2.8</version>
+    <version>2.8.1</version>
     <priority>1</priority>
     <position>2</position>
     <status>disabled</status>
@@ -12,6 +12,8 @@
     <translations>
         <item for="name" lang="pl">2LM: System Płatności BlueMedia</item>
         <item for="description" lang="pl"><![CDATA[Obsługa bramki płatności BlueMedia. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></item>
+        <item for="name" lang="cs">2LM: Platební systém BlueMedia</item>
+        <item for="description" lang="cs"><![CDATA[Podpora platební brány BlueMedia. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></item>
     </translations>
 
     <authors>
@@ -171,6 +173,36 @@
         <item lang="en" id="2lm_bm_url_rpdn">The URL to which RPDN is sent</item>
         <item lang="pl" id="2lm_bm_pbl">Płatność z banku</item>
         <item lang="en" id="2lm_bm_pbl">Payment from the bank</item>
+
+        <item lang="pl" id="2lm_bm_info_how_to_start">JAK ZACZĄĆ?</item>
+        <item lang="en" id="2lm_bm_info_how_to_start">HOW TO START?</item>
+        <item lang="cs" id="2lm_bm_info_how_to_start">JAK ZAČÍT?</item>
+        <item lang="pl" id="2lm_bm_info_register">Zarejestruj się</item>
+        <item lang="en" id="2lm_bm_info_register">Register</item>
+        <item lang="cs" id="2lm_bm_info_register">Registrace</item>
+        <item lang="pl" id="2lm_bm_info_create_account">Załóż darmowe konto w serwisie.</item>
+        <item lang="en" id="2lm_bm_info_create_account">Create a free account on the site.</item>
+        <item lang="cs" id="2lm_bm_info_create_account">Vytvořte si na webu bezplatný účet.</item>
+        <item lang="pl" id="2lm_bm_info_set_up_payments">Skonfiguruj płatności w swoim sklepie.</item>
+        <item lang="en" id="2lm_bm_info_set_up_payments">Set up payments in your shop.</item>
+        <item lang="cs" id="2lm_bm_info_set_up_payments">Nastavení plateb v obchodě.</item>
+        <item lang="pl" id="2lm_bm_info_enter_your_details">Podaj dane Twojej firmy i potwierdź je przelewem weryfikacyjnym.</item>
+        <item lang="en" id="2lm_bm_info_enter_your_details">Enter your company details and confirm them with a verification transfer.</item>
+        <item lang="cs" id="2lm_bm_info_enter_your_details">Zadejte údaje o své společnosti a potvrďte je ověřovacím převodem.</item>
+        <item lang="pl" id="2lm_bm_info_find_out_more">Dowiedz się więcej</item>
+        <item lang="en" id="2lm_bm_info_find_out_more">Find out more</item>
+        <item lang="cs" id="2lm_bm_info_find_out_more">Zjistěte více</item>
+        <item lang="pl" id="2lm_bm_info_find_out_more_rest">o wdrożeniu płatności w Twoim sklepie.</item>
+        <item lang="en" id="2lm_bm_info_find_out_more_rest">about implementing payments in your shop.</item>
+        <item lang="cs" id="2lm_bm_info_find_out_more_rest">informací o implementaci plateb ve vašem obchodě.</item>
+        <item lang="pl" id="2lm_bm_info_prepare_shop_regulations">Przygotuj regulamin sklepu 10% taniej.</item>
+        <item lang="en" id="2lm_bm_info_prepare_shop_regulations">Prepare shop regulations 10% off.</item>
+        <item lang="cs" id="2lm_bm_info_prepare_shop_regulations">Připravte si předpisy obchodu 10% sleva.</item>
+        <item lang="pl" id="2lm_bm_info_commission_of">Prowizja tylko 1,19%</item>
+        <item lang="en" id="2lm_bm_info_commission_of">Commission of only 1.19%</item>
+        <item lang="cs" id="2lm_bm_info_commission_of">Provize pouze 1,19 %</item>
+
+
     </language_variables>
 
     <settings edition_type="ROOT,ULT:VENDOR">
@@ -181,6 +213,10 @@
                     <item lang="pl">Ogólne</item>
                 </translations>
                 <items>
+                    <item id="info">
+                        <type>info</type>
+                        <handler>fn_bm_info</handler>
+                    </item>
                     <item id="allow_select_gateway">
                         <name>Choosing the payment channel when placing an order (WhiteLabel)</name>
                         <tooltip>After selecting the 'YES' option, available payment channels (payment instruments) will be displayed in the last step of placing the order. When the option is disabled, the payment channels are selected on a dedicated page of the BM System.</tooltip>

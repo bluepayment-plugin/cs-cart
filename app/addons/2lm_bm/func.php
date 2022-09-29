@@ -8,6 +8,18 @@ if (!defined('BOOTSTRAP')) {
 }
 
 /**
+ * Display info about "How to start" in the addon configuration popup.
+ *
+ * @return string
+ */
+function fn_bm_info()
+{
+    if (isset(Tygh::$app['view'])) {
+        return Tygh::$app['view']->fetch('addons/2lm_bm/settings/bm_info.tpl');
+    }
+}
+
+/**
  * Check a PHP environment.
  *
  * @return array
@@ -1139,7 +1151,6 @@ function fn_2lm_bm_subscription_deactivate($processor_params, $order_id)
     return $response_parsed;
 }
 
-
 /**
  * @param $order_id
  * @return array
@@ -1148,7 +1159,6 @@ function fn_2lm_bm_get_order_subscriptions_data($order_id)
 {
     return [];
 }
-
 
 /**
  * Set a correct flag 'order_subscription_enabled' for recurring orders.
@@ -1181,7 +1191,6 @@ function fn_2lm_bm_get_order_info(&$order_info, $additional_data)
         }
     }
 }
-
 
 /**
  * Mark recurring orders at the orders list, limit results only to recurring orders (if specific 'bm_recurring_purchases'
@@ -1279,7 +1288,6 @@ function fn_2lm_bm_remove_blik_item(&$payway_list)
     }
 }
 
-
 /**
  * Get payment_id from the specific order
  *
@@ -1300,12 +1308,15 @@ function fn_2lm_bm_get_payment_id_from_order($order_id)
 function fn_2lm_bm_get_processor_params($payment_id)
 {
     $processor_params = fn_get_payment_method_data($payment_id);
+
     return (empty($processor_params)) ? [] : $processor_params['processor_params'];
 }
 
 /**
- * @param $params
- * @param $payments
+ * Zaktualizuj listę metod płatności usuwając nie obsługiwane metody lub ich kanały.
+ *
+ * @param array $params
+ * @param array $payments
  */
 function fn_2lm_bm_get_payments_post($params, &$payments)
 {
@@ -1364,12 +1375,14 @@ function fn_2lm_bm_get_payments_post($params, &$payments)
 }
 
 /**
- * @param array  $params
- * @param array  $fields
- * @param string $join
- * @param $order
- * @param string $condition
- * @param $having
+ * Pobierz z bazy danych dane z dodatkowej kolumny 'processor_script'.
+ *
+ * @param array $params
+ * @param array $fields
+ * @param array $join
+ * @param array $order
+ * @param array $condition
+ * @param array $having
  */
 function fn_2lm_bm_get_payments($params, &$fields, $join, $order, $condition, $having) {
     if (AREA === 'C') {
@@ -1394,8 +1407,8 @@ function fn_2lm_bm_update_payment_pre(&$payment_data, &$payment_id, &$lang_code,
         $src_type = !empty($_REQUEST["type_{$img_key}_image_icon"][0]) ? $_REQUEST["type_{$img_key}_image_icon"][0] : 'local';
         if (empty($payment_id)
             && (
-                $src_type === 'local' && empty($_FILES["file_{$img_key}_image_icon"]['name'][0])
-                || $src_type === 'server' && empty($_REQUEST["file_{$img_key}_image_icon"][0])
+                ($src_type === 'local' && empty($_FILES["file_{$img_key}_image_icon"]['name'][0]))
+                || ($src_type === 'server' && empty($_REQUEST["file_{$img_key}_image_icon"][0]))
             )
         ) {
             $_REQUEST["file_{$img_key}_image_icon"][0] = Registry::get('config.current_location') . fn_get_theme_path('/[relative]/media/images/addons/2lm_bm/logo_bm.png');
@@ -1421,6 +1434,8 @@ function fn_2lm_bm_is_bm_processor($processor_id = 0)
 }
 
 /**
+ * Zwróć listę metod płatności BM, które nie mają zdefiniowanej konkretnej wartości gateway_id.
+ *
  * @return array
  */
 function fn_2lm_bm_get_gateway_ids()
@@ -1440,6 +1455,7 @@ function fn_2lm_bm_get_gateway_ids()
             }
         }
     }
+
     return $gateway_ids;
 }
 
