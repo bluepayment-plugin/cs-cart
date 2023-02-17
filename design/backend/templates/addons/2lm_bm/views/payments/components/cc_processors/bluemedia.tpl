@@ -107,7 +107,7 @@
     </div>
 </div>
 <div class="control-group">
-    <label class="control-label" for="2lm_bm_api_key">Klucz:</label>
+    <label class="control-label" for="2lm_bm_api_key">Klucz konfiguracyjny (hash):</label>
     <div class="controls">
         <input type="text" name="payment_data[processor_params][api_key]" id='2lm_bm_api_key' size="60" value="{$processor_params.api_key}" />
     </div>

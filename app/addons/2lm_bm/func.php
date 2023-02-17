@@ -57,7 +57,7 @@ function fn_2lm_bm_install()
 {
     $company_id = fn_get_runtime_company_id();
 
-    $id = db_query("INSERT INTO ?:payment_processors ?e", array(
+    $id = db_query('INSERT INTO ?:payment_processors ?e', [
         'processor' => 'BlueMedia',
         'processor_script' => 'bm.php',
         'processor_template' => 'addons/2lm_bm/views/orders/components/payments/bluemedia.tpl',
@@ -65,11 +65,12 @@ function fn_2lm_bm_install()
         'callback' => 'Y',
         'type' => 'P',
         'addon' => '2lm_bm'
-    ));
+    ]);
 
     $id_arr[] = fn_2lm_create_bm_payment_method($id, $company_id, '');
     $id_arr[] = fn_2lm_create_bm_payment_method($id, $company_id, 'blik');
     $id_arr[] = fn_2lm_create_bm_payment_method($id, $company_id, 'apple');
+    $id_arr[] = fn_2lm_create_bm_payment_method($id, $company_id, 'visamobile');
 
     if (fn_allowed_for('ULTIMATE')) {
         foreach($id_arr as $_id) {
@@ -82,27 +83,39 @@ function fn_2lm_bm_install()
 }
 
 /**
- * @param $id
- * @param $company_id
- * @param bool $blik
+ * Dodaj nową metodę płatności.
+ *
+ * @param int $id
+ * @param int $company_id
+ * @param int $gateway
+ *
  * @return mixed
  */
 function fn_2lm_create_bm_payment_method($id, $company_id, $gateway)
 {
-    $pid = db_query('INSERT INTO ?:payments ?e', array(
+    $status = 'A';
+    $processor_params = '';
+    if ($gateway === 'apple') {
+        $processor_params = serialize(['gateway_id' => BLUEMEDIA_GATEWAY_ID_APPLE_PAY]);
+    } elseif ($gateway === 'visamobile') {
+        $processor_params = serialize(['gateway_id' => BLUEMEDIA_GATEWAY_ID_VISA_MOBILE]);
+        $status = 'D';
+    }
+    $pid = db_query(
+        'INSERT INTO ?:payments ?e', [
         'company_id' => $company_id,
         'usergroup_ids' => '0',
         'position' => 0,
-        'status' => 'A',
+        'status' => $status,
         'template' => 'addons/2lm_bm/views/orders/components/payments/bluemedia.tpl',
         'processor_id' => $id,
-        'processor_params' => ($gateway == 'apple' ? serialize(['gateway_id' => BLUEMEDIA_GATEWAY_ID_APPLE_PAY]) : ''),
+        'processor_params' => $processor_params,
         'a_surcharge' => 0.0,
         'p_surcharge' => 0.0,
         'tax_ids' => '',
         'localization' => '',
         'payment_category' => 'tab1'
-    ));
+    ]);
 
     $data = [
         'payment_id' => $pid,
@@ -132,12 +145,12 @@ function fn_2lm_bm_uninstall()
     if (fn_allowed_for('ULTIMATE')) {
         db_query("DELETE FROM ?:ult_objects_sharing WHERE share_object_type = ?s AND share_object_id IN (SELECT payment_id FROM ?:payments WHERE processor_id IN (SELECT processor_id FROM ?:payment_processors WHERE processor_script = 'bm.php'))", 'payments');
     }
-    db_query("DELETE FROM ?:payments WHERE processor_id IN (SELECT processor_id FROM ?:payment_processors WHERE processor_script = 'bm.php')");
-    db_query("DELETE FROM ?:payment_processors WHERE processor_script = 'bm.php'");
+    db_query("DELETE FROM ?:payments WHERE processor_id IN (SELECT processor_id FROM ?:payment_processors WHERE processor_script = ?s)", 'bm.php');
+    db_query('DELETE FROM ?:payment_processors WHERE processor_script = ?s', 'bm.php');
 }
 
 /**
- * @param int $order_id
+ * @param int    $order_id
  * @param string $hash
  *
  * @return bool|mixed
@@ -447,6 +460,9 @@ function fn_2lm_bm_prepare_form_data_for_new_order_payment(array &$cart, $from_o
         'Currency' => strtoupper($order_info['secondary_currency']),
         'CustomerEmail' => $order_info['email'],
         'CustomerIP' => $customer_ip['host'],
+        'PlatformName' => PRODUCT_NAME,
+        'PlatformVersion' => PRODUCT_VERSION,
+        'PlatformPluginVersion' => fn_2lm_bm_get_addon_version()
     ];
 
     if (!empty($from_order_id)) { // Dla płatności abonamentowych
@@ -1280,10 +1296,12 @@ function fn_2lm_bm_is_blik_payment($payment_id)
  */
 function fn_2lm_bm_remove_blik_item(&$payway_list)
 {
-    foreach ($payway_list['gateway'] as $id => $item) {
-        if ($item->gatewayID == BLUEMEDIA_GATEWAY_ID_BLIK0) {
-            unset($payway_list['gateway'][$id]);
-            break;
+    if (!empty($payway_list['gateway'])) {
+        foreach ($payway_list['gateway'] as $id => $item) {
+            if ($item->gatewayID == BLUEMEDIA_GATEWAY_ID_BLIK0) {
+                unset($payway_list['gateway'][$id]);
+                break;
+            }
         }
     }
 }
@@ -1322,6 +1340,8 @@ function fn_2lm_bm_get_payments_post($params, &$payments)
 {
     if (AREA === 'C') {
         $bm_settings = Registry::get('addons.2lm_bm');
+        $cart = & Tygh::$app['session']['cart'];
+        $cart_total = fn_2lm_bm_format_price_by_currency($cart['total'], CART_PRIMARY_CURRENCY, CART_SECONDARY_CURRENCY);
 
         $bm_payment_ids = fn_2lm_bm_get_bluemedia_payment_ids();
         foreach ($payments as $id => $payment) {
@@ -1349,26 +1369,51 @@ function fn_2lm_bm_get_payments_post($params, &$payments)
                         fn_2lm_bm_remove_blik_item($payments[$id]['gateway']);
 
                         $gateways = [];
-                        if ($bm_settings['group_by_type'] === 'Y') {
-                            $grouped_gateways = [];
-                            if (isset($payments[$id]['gateway'])) {
-                                foreach ($payments[$id]['gateway'] as $_gateway) {
-                                    $grouped_gateways[(string)$_gateway->gatewayType][(int)$_gateway->gatewayID] = (array)$_gateway;
+                        foreach ($payments[$id]['gateway'] as $_gid => $_gateway) {
+                            $gatewayOk = false;
+
+                            if (!empty($_gateway->currencyList)) {
+                                foreach ($_gateway->currencyList as $_gconditions) {
+                                    if (fn_strtoupper($_gconditions->currency) === CART_SECONDARY_CURRENCY) {
+                                        $gatewayOk = true;
+                                    } else {
+                                        continue;
+                                    }
+                                    if ((!empty($_gconditions->minAmount) && $_gconditions->minAmount > $cart_total) || (!empty($_gconditions->maxAmount) && $_gconditions->maxAmount < $cart_total)) {
+                                        $gatewayOk = false;
+                                    }
                                 }
                             }
-                            $gateways = $grouped_gateways;
-                        } else {
-                            foreach ($payments[$id]['gateway'] as $_gateway) {
+
+                            if (!$gatewayOk) {
+                                unset($gateways[(int)$_gateway->gatewayID]);
+                            } else {
                                 $gateways[(int)$_gateway->gatewayID] = (array)$_gateway;
                             }
                         }
 
-                        $payments[$id]['bluemedia_group_by_type'] = $bm_settings['group_by_type'];
-                        $payments[$id]['bluemedia_gateways'] = $gateways;
+                        if (!empty($gateways)) {
+                            $payments[$id]['bluemedia_group_by_type'] = $bm_settings['group_by_type'];
+                            $payments[$id]['bluemedia_gateways'] = $gateways;
+                        } else {
+                            unset($payments[$id]);
+                        }
                     }
                     unset($gateway);
                 }
                 unset($params);
+            }
+
+
+            if ($bm_settings['group_by_type'] === 'Y') {
+                $grouped_gateways = [];
+                if (!empty($payments[$id]['bluemedia_gateways'])) {
+                    foreach ($payments[$id]['bluemedia_gateways'] as $_gateway) {
+                        $grouped_gateways[(string)$_gateway['gatewayType']][(int)$_gateway['gatewayID']] = (array)$_gateway;
+                    }
+                }
+                $gateways = $grouped_gateways;
+                $payments[$id]['bluemedia_gateways'] = $gateways;
             }
         }
     }
@@ -1394,11 +1439,14 @@ function fn_2lm_bm_get_payments($params, &$fields, $join, $order, $condition, $h
 }
 
 /**
- * @param $payment_data
- * @param $payment_id
- * @param $lang_code
- * @param $certificate_file
- * @param $certificates_dir
+ * Adds additional actions before payment updating
+ *
+ * @param array  $payment_data               Payment data
+ * @param int    $payment_id                 Payment identifier
+ * @param string $lang_code                  Language code
+ * @param array  $certificate_file
+ * @param string $certificates_dir
+ * @param string $can_remove_offline_payment_params Whether offline payment parameters should be removed
  */
 function fn_2lm_bm_update_payment_pre(&$payment_data, &$payment_id, &$lang_code, &$certificate_file, &$certificates_dir)
 {
@@ -1411,7 +1459,12 @@ function fn_2lm_bm_update_payment_pre(&$payment_data, &$payment_id, &$lang_code,
                 || ($src_type === 'server' && empty($_REQUEST["file_{$img_key}_image_icon"][0]))
             )
         ) {
-            $_REQUEST["file_{$img_key}_image_icon"][0] = Registry::get('config.current_location') . fn_get_theme_path('/[relative]/media/images/addons/2lm_bm/logo_bm.png');
+            $logo_url = Registry::get('config.current_location') . fn_get_theme_path('/[relative]/media/images/addons/2lm_bm/logo_bm.png');
+            if (!empty($payment_data['processor_params']['gateway_id']) && $payment_data['processor_params']['gateway_id'] == BLUEMEDIA_GATEWAY_ID_VISA_MOBILE) {
+                $logo_url = Registry::get('config.current_location') . fn_get_theme_path('/[relative]/media/images/addons/2lm_bm/VisaMobile.png');
+            }
+
+            $_REQUEST["file_{$img_key}_image_icon"][0] = $logo_url;
             $_REQUEST["type_{$img_key}_image_icon"][0] = 'url';
         }
     }
@@ -1443,8 +1496,9 @@ function fn_2lm_bm_get_gateway_ids()
     $gateway_ids = [];
     $payments = db_get_fields(
         "SELECT ?:payments.processor_params FROM ?:payments 
-         INNER JOIN ?:payment_processors ON ?:payments.processor_id = ?:payment_processors.processor_id 
-        WHERE ?:payment_processors.processor_script = ?s",
+        INNER JOIN ?:payment_processors ON ?:payments.processor_id = ?:payment_processors.processor_id 
+        WHERE ?:payments.status = ?s AND ?:payment_processors.processor_script = ?s",
+        'A',
         'bm.php'
     );
     foreach ($payments as $pp) {
@@ -1481,10 +1535,19 @@ function fn_2lm_bm_get_gateways($payment_id) {
     if (empty($payway_list)) {
         $payway_list = fn_2lm_bm_do_gateway_list($payment_id);
 
-        if ($payway_list['result'] === 'OK') {
+        if ($payway_list['result'] === 'OK' && !empty($payway_list['hash'])) {
             Registry::set($cache_name . '.' . $key, $payway_list);
         }
     }
 
     return $payway_list;
+}
+
+/**
+ * Zwróć numer wersji dodatku 2LM BLueMedia.
+ *
+ * @return string
+ */
+function fn_2lm_bm_get_addon_version() {
+    return db_get_field('SELECT version FROM ?:addons WHERE addon = ?s', '2lm_bm');
 }
