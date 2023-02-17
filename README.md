@@ -47,7 +47,7 @@ Więcej informacji o zamówieniach cyklicznych znajduje się w rozdziale "Dział
 
 ### Ustawienia metody płatności 
 
-Po instalacji dodatku zostaną automatycznie utworzone i wstępnie skonfigurowane trzy nowe metody płatności: „System płatności BlueMedia”, „Apple Pay” oraz „Płatność BLIK”. Aby stały się one dostępne w sklepie, konieczne jest dokończenie ich konfiguracji. 
+Po instalacji dodatku zostaną automatycznie utworzone i wstępnie skonfigurowane cztery nowe metody płatności: „System płatności BlueMedia”, „Apple Pay”, „Płatność BLIK” oraz „VISA Mobile”. Aby stały się one dostępne w sklepie, konieczne jest dokończenie ich konfiguracji. 
 
 W panelu administracyjnym przechodzimy do sekcji Metody płatności (menu: **Administracja / Metody płatności**), a następnie klikamy w nazwę metody płatności. 
 
@@ -55,9 +55,10 @@ W panelu administracyjnym przechodzimy do sekcji Metody płatności (menu: **Adm
 
  Wyświetli się nowa strona z konfiguracją płatności. Przechodzimy w niej do zakładki „**Konfiguruj**”, gdzie możemy dokonać szczegółowych ustawień bramki płatności. 
  
- ![Konfiguruj](https://user-images.githubusercontent.com/87177993/126764431-131d4212-8937-47e0-935b-859a783288ee.jpg)
+![Konfiguruj](https://user-images.githubusercontent.com/111113369/219613648-bee98a5d-1932-4959-a32b-d2e560239415.png)
 
-Podstawowa konfiguracja, jaką należy wykonać, to wprowadzenie danych dotyczących ustawień konta Blue Media. Zgodnie z danymi jakie otrzymaliśmy wprowadzamy: „**ID usługi**”, „**Klucz**”, „**Separator**” oraz „**Algorytm**”, jakim jest kodowany hash (domyślnie SHA 256). Dodatkowe opcje, jakie możemy ustawić, to: 
+
+Podstawowa konfiguracja, jaką należy wykonać, to wprowadzenie danych dotyczących ustawień konta Blue Media. Zgodnie z danymi jakie otrzymaliśmy wprowadzamy: „**ID usługi**”, „**Klucz konfiguracyjny (hash)**”, „**Separator**” oraz „**Algorytm**”, jakim jest kodowany hash (domyślnie SHA 256). Dodatkowe opcje, jakie możemy ustawić, to: 
 
 - „**Tryb pracy**”: określa, czy konfigurujemy testowy serwis płatności (a więc możemy dowolnie testować funkcjonalności dodatku), czy serwis produkcyjny. 
 - W polu „**Prefix opisu zamówienia**” istnieje możliwość ustawienia tekstu, który będzie wyświetlany przed numerem zamówienia w danych, jakie są wysyłane do serwisu Blue Media. 
