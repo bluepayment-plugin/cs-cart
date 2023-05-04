@@ -211,17 +211,21 @@ if (defined('PAYMENT_NOTIFICATION')) {
             );
 
             if ($response_parsed['confirmation'] !== 'CONFIRMED') {
+                fn_2lm_bm_write_to_log_table($processed_order_id, ['response' => $response_parsed,], 'ERROR: After parsing response confirmation is not CONFIRMED.');
                 throw new Exception ('After parsing response confirmation is not CONFIRMED.');
             }
 
-            $bm_response_payment_status = strtolower($response_parsed['paymentStatus']);
+            $bm_response_payment_status = !empty($response_parsed['paymentStatus'])
+                ? strtolower($response_parsed['paymentStatus'])
+                : 'pending';
 
-            if ($bm_response_payment_status == 'failure') {
+            if ($bm_response_payment_status === 'failure') {
+                fn_2lm_bm_write_to_log_table($processed_order_id, ['response' => $response_parsed,], 'paymentStatus == failure');
                 throw new Exception (__('2lm_bm_blik_wrong_code_error_msg'));
             }
 
             if (empty($processor_data['processor_params']['statuses'][$bm_response_payment_status])) {
-                throw new Exception ('Order status is not mapped for BM status: ' . $bm_response_payment_status);
+//                throw new Exception ('Order status is not mapped for BM status: ' . $bm_response_payment_status);
             }
 
             $pp_response['order_status'] = $processor_data['processor_params']['statuses'][$bm_response_payment_status];

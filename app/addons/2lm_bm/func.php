@@ -460,9 +460,6 @@ function fn_2lm_bm_prepare_form_data_for_new_order_payment(array &$cart, $from_o
         'Currency' => strtoupper($order_info['secondary_currency']),
         'CustomerEmail' => $order_info['email'],
         'CustomerIP' => $customer_ip['host'],
-        'PlatformName' => PRODUCT_NAME,
-        'PlatformVersion' => PRODUCT_VERSION,
-        'PlatformPluginVersion' => fn_2lm_bm_get_addon_version()
     ];
 
     if (!empty($from_order_id)) { // Dla płatności abonamentowych
@@ -477,6 +474,10 @@ function fn_2lm_bm_prepare_form_data_for_new_order_payment(array &$cart, $from_o
             unset($cart['payment_blik_code']);
         }
     }
+
+    $form_data['PlatformName'] = PRODUCT_NAME;
+    $form_data['PlatformVersion'] = PRODUCT_VERSION;
+    $form_data['PlatformPluginVersion'] = fn_2lm_bm_get_addon_version();
 
     return $form_data;
 }
