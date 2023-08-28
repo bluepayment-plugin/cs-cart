@@ -74,7 +74,7 @@
 
     <div class="sandbox-mode-info-box">
         <span class="icon"><img src="{$images_dir}/addons/2lm_bm/info.png" alt="info" /></span>
-        <span class="msg">Identyfikator serwisu i klucz współdzielony dla środowiska testowego różnią się od danych produkcyjnych.<br />Żeby uzyskać dane do środowiska testowego, <a href="https://developers.bluemedia.pl/kontakt?mtm_campaign=cscart_developers_formularz&mtm_source=cscart_backoffice&mtm_medium=hiperlink">skontaktuj się z nami</a></span>
+        <span class="msg">Identyfikator serwisu i klucz współdzielony dla środowiska testowego różnią się od danych produkcyjnych.<br />Żeby uzyskać dane do środowiska testowego, <a href="https://developers.autopay.pl/kontakt?mtm_campaign=cscart_developers_formularz&mtm_source=cscart_backoffice&mtm_medium=hiperlink">skontaktuj się z nami</a></span>
     </div>
 </div>
 

@@ -35,7 +35,7 @@
     </div>
 </form>
 
-{assign var="text_bluemedia_amount_alert" value=__("text_gift_cert_amount_alert", ["[min]" => 0, "[max]" => $refund_order_info.amount])}
+{assign var="text_bluemedia_amount_alert" value=__("2lm_bm_refund_amount_alert", ["[min]" => 0, "[max]" => $refund_order_info.amount])}
 <script>
 (function(_, $) {
     $(document).ready(function() {

@@ -93,7 +93,7 @@ function fn_2lm_bm_install()
  */
 function fn_2lm_create_bm_payment_method($id, $company_id, $gateway)
 {
-    $status = 'A';
+    $status = 'D';
     $processor_params = '';
     if ($gateway === 'apple') {
         $processor_params = serialize(['gateway_id' => BLUEMEDIA_GATEWAY_ID_APPLE_PAY]);
@@ -187,7 +187,7 @@ function fn_2lm_bm_delete_order_hash($order_id)
 }
 
 /**
- * Returns Bluemedia transaction status info.
+ * Returns Autopay transaction status info.
  *
  * @param string $key
  *
@@ -205,7 +205,7 @@ function fn_2lm_bm_transaction_status_info($key = '')
 }
 
 /**
- * Returns Bluemedia payment statuses.
+ * Returns Autopay payment statuses.
  *
  * @return array
  */
@@ -219,7 +219,7 @@ function fn_2lm_bm_get_bluemedia_payment_statuses()
 }
 
 /**
- * Return Bluemedia payment statuses details.
+ * Return Autopay payment statuses details.
  *
  * @param string $status
  *
@@ -502,7 +502,7 @@ function fn_2lm_bm_format_price_by_currency($price, $currency_from = CART_PRIMAR
 }
 
 /**
- * Check if current payment is BlueMedia payment.
+ * Check if current payment is Autopay payment.
  *
  * @return bool
  */
@@ -712,7 +712,7 @@ function fn_2lm_bm_do_gateway_list($payment_id)
     }
 
     $processor_params = fn_2lm_bm_get_processor_params($payment_id);
-    if (empty($processor_params)) {
+    if (empty($processor_params) || empty($processor_params['service_id'])) {
         return [];
     }
     $data = [
@@ -1536,7 +1536,7 @@ function fn_2lm_bm_get_gateways($payment_id) {
     if (empty($payway_list)) {
         $payway_list = fn_2lm_bm_do_gateway_list($payment_id);
 
-        if ($payway_list['result'] === 'OK' && !empty($payway_list['hash'])) {
+        if (!empty($payway_list) && $payway_list['result'] === 'OK' && !empty($payway_list['hash'])) {
             Registry::set($cache_name . '.' . $key, $payway_list);
         }
     }

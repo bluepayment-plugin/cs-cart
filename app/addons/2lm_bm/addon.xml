@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
 <addon scheme="2.0">
     <id>2lm_bm</id>
-    <name>2LM: BlueMedia Payment Gateway</name>
-    <description><![CDATA[BlueMedia Payment Gateway. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></description>
-    <version>2.8.4</version>
+    <name>2LM: Autopay online payment</name>
+    <description><![CDATA[Autopay Payment Gateway. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></description>
+    <version>2.8.5</version>
     <priority>1</priority>
     <position>2</position>
     <status>disabled</status>
     <default_language>en</default_language>
+    <has_icon>Y</has_icon>
 
     <translations>
-        <item for="name" lang="pl">2LM: System Płatności BlueMedia</item>
-        <item for="description" lang="pl"><![CDATA[Obsługa bramki płatności BlueMedia. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></item>
-        <item for="name" lang="cs">2LM: Platební systém BlueMedia</item>
-        <item for="description" lang="cs"><![CDATA[Podpora platební brány BlueMedia. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></item>
+        <item for="name" lang="pl">2LM: Płatności online Autopay</item>
+        <item for="description" lang="pl"><![CDATA[Obsługa bramki płatności online Autopay. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></item>
+        <item for="name" lang="cs">2LM: Platební systém Autopay</item>
+        <item for="description" lang="cs"><![CDATA[Podpora platební brány Autopay. Copyright &copy;&nbsp;<strong><a href="https://www.2lm.pl/" target="_blank">2LM Sp. z o.o.</a></strong>]]></item>
     </translations>
 
     <authors>
@@ -29,150 +30,228 @@
     <supplier_link>https://www.2lm.pl</supplier_link>
 
     <language_variables>
-        <item lang="en" id="privileges.manage_2lm_bm_refund">Addon 2LM: BlueMedia - refund</item>
-        <item lang="pl" id="privileges.manage_2lm_bm_refund">Dodatek 2LM: BlueMedia - zwroty płatności</item>
-        <item lang="en" id="2lm_bm">BlueMedia</item>
-        <item lang="pl" id="2lm_bm">BlueMedia</item>
-        <item lang="en" id="2lm_bm_choose_onetime_payment_option">BlueMedia - Choose payment channel</item>
-        <item lang="pl" id="2lm_bm_choose_onetime_payment_option">BlueMedia - wybierz kanał płatności</item>
+        <item lang="en" id="privileges.manage_2lm_bm_refund">Addon 2LM: Autopay online payment - refund</item>
+        <item lang="cs" id="privileges.manage_2lm_bm_refund">Addon 2LM: Autopay online payment - refund</item>
+        <item lang="pl" id="privileges.manage_2lm_bm_refund">Dodatek 2LM: Płatności online Autopay - zwroty płatności</item>
+        <item lang="en" id="2lm_bm">Autopay</item>
+        <item lang="cs" id="2lm_bm">Autopay</item>
+        <item lang="pl" id="2lm_bm">Autopay</item>
+        <item lang="en" id="2lm_bm_choose_onetime_payment_option">Autopay - Choose payment channel</item>
+        <item lang="cs" id="2lm_bm_choose_onetime_payment_option">Autopay - Choose payment channel</item>
+        <item lang="pl" id="2lm_bm_choose_onetime_payment_option">Autopay - wybierz kanał płatności</item>
         <item lang="en" id="2lm_bm_your_balance_is_not_enough">The value of your balance is not enough to make a refund. Please try again later.</item>
+        <item lang="cs" id="2lm_bm_your_balance_is_not_enough">The value of your balance is not enough to make a refund. Please try again later.</item>
         <item lang="pl" id="2lm_bm_your_balance_is_not_enough">Wartość Twojego salda jest nie wystarczająca do zrealizowania zwrotu. Spróbuj proszę później.</item>
         <item lang="en" id="2lm_bm_description">Prefix for an order description</item>
+        <item lang="cs" id="2lm_bm_description">Prefix for an order description</item>
         <item lang="pl" id="2lm_bm_description">Prefix opisu zamówienia</item>
-        <item lang="en" id="2lm_bm_status_map">Mapping status from BlueMedia => CS-Cart</item>
-        <item lang="pl" id="2lm_bm_status_map">Mapowanie statusów BlueMedia => CS-Cart</item>
+        <item lang="en" id="2lm_bm_status_map">Mapping status from Autopay => CS-Cart</item>
+        <item lang="cs" id="2lm_bm_status_map">Mapping status from Autopay => CS-Cart</item>
+        <item lang="pl" id="2lm_bm_status_map">Mapowanie statusów Autopay => CS-Cart</item>
         <item lang="en" id="2lm_bm_payment_pending">Transaction started</item>
+        <item lang="cs" id="2lm_bm_payment_pending">Transaction started</item>
         <item lang="pl" id="2lm_bm_payment_pending">Transakcja rozpoczęta</item>
         <item lang="en" id="2lm_bm_payment_success">Correct transaction authorization</item>
+        <item lang="cs" id="2lm_bm_payment_success">Correct transaction authorization</item>
         <item lang="pl" id="2lm_bm_payment_success">Poprawna autoryzacja transakcji</item>
         <item lang="en" id="2lm_bm_payment_failure">Transaction not completed correctly</item>
+        <item lang="cs" id="2lm_bm_payment_failure">Transaction not completed correctly</item>
         <item lang="pl" id="2lm_bm_payment_failure">Transakcja nie została zakończona poprawnie</item>
-        <item lang="en" id="current_status_bm">Status in BlueMedia</item>
-        <item lang="pl" id="current_status_bm">Status w BlueMedia</item>
-        <item lang="en" id="2lm_bm_status_ok_before_post_from_bm">The status, which is set after returning from the BlueMedia, after the correct transaction and when not yet received any ITN notification</item>
-        <item lang="pl" id="2lm_bm_status_ok_before_post_from_bm">Status, który jest ustawiany po zarejestrowaniu transakcji i powrocie z BlueMedia oraz gdy nie otrzymano jeszcze żadnej notyfikacji ITN</item>
-        <item lang="en" id="2lm_bm_payment_title">The BlueMedia payment system</item>
-        <item lang="pl" id="2lm_bm_payment_title">System płatności BlueMedia</item>
-        <item lang="en" id="2lm_bm_payment_description">Online payment by BlueMedia</item>
-        <item lang="pl" id="2lm_bm_payment_description">Płatność internetowa za pośrednictwem systemu BlueMedia</item>
+        <item lang="en" id="current_status_bm">Status in Autopay</item>
+        <item lang="cs" id="current_status_bm">Status in Autopay</item>
+        <item lang="pl" id="current_status_bm">Status w Autopay</item>
+        <item lang="en" id="2lm_bm_status_ok_before_post_from_bm">The status, which is set after returning from the Autopay, after the correct transaction and when not yet received any ITN notification</item>
+        <item lang="cs" id="2lm_bm_status_ok_before_post_from_bm">The status, which is set after returning from the Autopay, after the correct transaction and when not yet received any ITN notification</item>
+        <item lang="pl" id="2lm_bm_status_ok_before_post_from_bm">Status, który jest ustawiany po zarejestrowaniu transakcji i powrocie z Autopay oraz gdy nie otrzymano jeszcze żadnej notyfikacji ITN</item>
+        <item lang="en" id="2lm_bm_payment_title">The Autopay online payment system</item>
+        <item lang="cs" id="2lm_bm_payment_title">The Autopay online payment system</item>
+        <item lang="pl" id="2lm_bm_payment_title">System płatności online Autopay</item>
+        <item lang="en" id="2lm_bm_payment_description">Online payment by Autopay</item>
+        <item lang="cs" id="2lm_bm_payment_description">Online payment by Autopay</item>
+        <item lang="pl" id="2lm_bm_payment_description">Płatność internetowa za pośrednictwem systemu Autopay</item>
         <item lang="en" id="2lm_bm_payment_blik_title">Payment by BLIK</item>
+        <item lang="cs" id="2lm_bm_payment_blik_title">Payment by BLIK</item>
         <item lang="pl" id="2lm_bm_payment_blik_title">Płatność BLIK</item>
         <item lang="en" id="2lm_bm_payment_blik_description"></item>
+        <item lang="cs" id="2lm_bm_payment_blik_description"></item>
         <item lang="pl" id="2lm_bm_payment_blik_description"></item>
         <item lang="en" id="2lm_bm_payment_apple_title">Apple Pay</item>
+        <item lang="cs" id="2lm_bm_payment_apple_title">Apple Pay</item>
         <item lang="pl" id="2lm_bm_payment_apple_title">Apple Pay</item>
+        <item lang="en" id="2lm_bm_payment_visamobile_title">Visa Mobile</item>
+        <item lang="cs" id="2lm_bm_payment_visamobile_title">Visa Mobile</item>
+        <item lang="pl" id="2lm_bm_payment_visamobile_title">Visa Mobile</item>
+        <item lang="en" id="2lm_bm_payment_visamobile_description"></item>
+        <item lang="cs" id="2lm_bm_payment_visamobile_description"></item>
+        <item lang="pl" id="2lm_bm_payment_visamobile_description"></item>
         <item lang="en" id="2lm_bm_payment_apple_description">Online payment by Apple Pay</item>
+        <item lang="cs" id="2lm_bm_payment_apple_description">Online payment by Apple Pay</item>
         <item lang="pl" id="2lm_bm_payment_apple_description">Płatność internetowa za pośrednictwem systemu Apple Pay</item>
         <item lang="en" id="2lm_bm_transaction_status_pending">Transaction started</item>
+        <item lang="cs" id="2lm_bm_transaction_status_pending">Transaction started</item>
         <item lang="pl" id="2lm_bm_transaction_status_pending">Transakcja rozpoczęta</item>
         <item lang="en" id="2lm_bm_transaction_status_success">Correct transaction authorization</item>
+        <item lang="cs" id="2lm_bm_transaction_status_success">Correct transaction authorization</item>
         <item lang="pl" id="2lm_bm_transaction_status_success">Poprawna autoryzacja transakcji</item>
         <item lang="en" id="2lm_bm_transaction_status_failure">The transaction was not completed correctly</item>
+        <item lang="cs" id="2lm_bm_transaction_status_failure">The transaction was not completed correctly</item>
         <item lang="pl" id="2lm_bm_transaction_status_failure">Transakcja nie została zakończona poprawnie</item>
         <item lang="en" id="remoteid">RemoteID</item>
+        <item lang="cs" id="remoteid">RemoteID</item>
         <item lang="pl" id="remoteid">Identyfikator transakcji</item>
         <item lang="en" id="gatewayid">GatewayID</item>
+        <item lang="cs" id="gatewayid">GatewayID</item>
         <item lang="pl" id="gatewayid">ID kanału płatności</item>
         <item lang="en" id="paymentdate">Payment date</item>
+        <item lang="cs" id="paymentdate">Payment date</item>
         <item lang="pl" id="paymentdate">Data zautoryzowania płatności</item>
         <item lang="en" id="paymentstatus">Payment status</item>
+        <item lang="cs" id="paymentstatus">Payment status</item>
         <item lang="pl" id="paymentstatus">Status autoryzacji transakcji</item>
         <item lang="en" id="paymentstatusdetails">Payment status details</item>
+        <item lang="cs" id="paymentstatusdetails">Payment status details</item>
         <item lang="pl" id="paymentstatusdetails">Szczegółowy status transakcji</item>
         <item lang="en" id="customerData_fname">First name</item>
+        <item lang="cs" id="customerData_fname">First name</item>
         <item lang="pl" id="customerData_fname">Imię płatnika</item>
         <item lang="en" id="customerData_lname">Last name</item>
+        <item lang="cs" id="customerData_lname">Last name</item>
         <item lang="pl" id="customerData_lname">Nazwisko płatnika</item>
         <item lang="en" id="customerData_streetname">Street</item>
+        <item lang="cs" id="customerData_streetname">Street</item>
         <item lang="pl" id="customerData_streetname">Ulica</item>
         <item lang="en" id="customerData_streethouseno">House Number</item>
+        <item lang="cs" id="customerData_streethouseno">House Number</item>
         <item lang="pl" id="customerData_streethouseno">Nr domu</item>
         <item lang="en" id="customerData_streetstaircaseno">Staircase Number</item>
+        <item lang="cs" id="customerData_streetstaircaseno">Staircase Number</item>
         <item lang="pl" id="customerData_streetstaircaseno">Nr klatki</item>
         <item lang="en" id="customerData_streetpremiseno">Premise Number</item>
+        <item lang="cs" id="customerData_streetpremiseno">Premise Number</item>
         <item lang="pl" id="customerData_streetpremiseno">Nr lokalu</item>
         <item lang="en" id="customerData_postalcode">Postal code</item>
+        <item lang="cs" id="customerData_postalcode">Postal code</item>
         <item lang="pl" id="customerData_postalcode">Kod pocztowy</item>
         <item lang="en" id="customerData_city">City</item>
+        <item lang="cs" id="customerData_city">City</item>
         <item lang="pl" id="customerData_city">Miasto</item>
         <item lang="en" id="customerData_nrb">Bank account</item>
+        <item lang="cs" id="customerData_nrb">Bank account</item>
         <item lang="pl" id="customerData_nrb">Rachunek bankowy</item>
         <item lang="en" id="2lm_bm_refund">Refund</item>
+        <item lang="cs" id="2lm_bm_refund">Refund</item>
         <item lang="pl" id="2lm_bm_refund">Zwrot płatności</item>
         <item lang="en" id="2lm_bm_refunds">Refunds</item>
+        <item lang="cs" id="2lm_bm_refunds">Refunds</item>
         <item lang="pl" id="2lm_bm_refunds">Zwroty płatności</item>
         <item lang="en" id="2lm_bm_refund_amount">Refund amount</item>
+        <item lang="cs" id="2lm_bm_refund_amount">Refund amount</item>
         <item lang="pl" id="2lm_bm_refund_amount">Kwota zwrotu</item>
         <item lang="en" id="2lm_bm_refund_security">Are you sure you want to do a refund?</item>
+        <item lang="cs" id="2lm_bm_refund_security">Are you sure you want to do a refund?</item>
         <item lang="pl" id="2lm_bm_refund_security">Czy na pewno chcesz zwrócić pieniądze?</item>
         <item lang="en" id="2lm_bm_error_cannot_enable_addon">Can not enable an addon. Please check messages below:</item>
-        <item lang="pl" id="2lm_bm_error_cannot_enable_addon">Nie mogę włączyć dodatku "2LM: System Płatności BlueMedia". Sprawdź proszę poniższe komunikaty:</item>
+        <item lang="cs" id="2lm_bm_error_cannot_enable_addon">Can not enable an addon. Please check messages below:</item>
+        <item lang="pl" id="2lm_bm_error_cannot_enable_addon">Nie mogę włączyć dodatku "2LM: Płatności online Autopay". Sprawdź proszę poniższe komunikaty:</item>
         <item lang="en" id="2lm_bm_error_wrong_php_version">Required at least PHP version 5.5, current version "[PHPVERSION]"</item>
+        <item lang="cs" id="2lm_bm_error_wrong_php_version">Required at least PHP version 5.5, current version "[PHPVERSION]"</item>
         <item lang="pl" id="2lm_bm_error_wrong_php_version">Wymagany jest PHP co najmniej w wersji 5.5, bieżąca wersja to "[PHPVERSION]"</item>
         <item lang="en" id="2lm_bm_error_xmlwriter_is_required">Extension "xmlwriter" is required</item>
+        <item lang="cs" id="2lm_bm_error_xmlwriter_is_required">Extension "xmlwriter" is required</item>
         <item lang="pl" id="2lm_bm_error_xmlwriter_is_required">Wymagane jest rozszerzenie "xmlwriter"</item>
         <item lang="en" id="2lm_bm_error_xmlreader_is_required">Extension "xmlreader" is required</item>
+        <item lang="cs" id="2lm_bm_error_xmlreader_is_required">Extension "xmlreader" is required</item>
         <item lang="pl" id="2lm_bm_error_xmlreader_is_required">Wymagane jest rozszerzenie "xmlreader"</item>
         <item lang="en" id="2lm_bm_error_iconv_is_required">Extension "iconv" is required</item>
+        <item lang="cs" id="2lm_bm_error_iconv_is_required">Extension "iconv" is required</item>
         <item lang="pl" id="2lm_bm_error_iconv_is_required">Wymagane jest rozszerzenie "iconv"</item>
         <item lang="en" id="2lm_bm_error_mbstring_is_required">Extension "mbstring" is required</item>
+        <item lang="cs" id="2lm_bm_error_mbstring_is_required">Extension "mbstring" is required</item>
         <item lang="pl" id="2lm_bm_error_mbstring_is_required">Wymagane jest rozszerzenie "mbstring"</item>
         <item lang="en" id="2lm_bm_error_hash_is_required">Extension "hash" is required</item>
+        <item lang="cs" id="2lm_bm_error_hash_is_required">Extension "hash" is required</item>
         <item lang="pl" id="2lm_bm_error_hash_is_required">Wymagane jest rozszerzenie "hash"</item>
         <item lang="en" id="2lm_bm_refund_has_been_done">The refund has been done</item>
+        <item lang="cs" id="2lm_bm_refund_has_been_done">The refund has been done</item>
         <item lang="pl" id="2lm_bm_refund_has_been_done">Zwrot został wykonany</item>
         <item lang="en" id="2lm_bm_refund_wrong_hash">Wrong hash value</item>
+        <item lang="cs" id="2lm_bm_refund_wrong_hash">Wrong hash value</item>
         <item lang="pl" id="2lm_bm_refund_wrong_hash">Nieprawidłowa wartość hash</item>
         <item lang="en" id="2lm_bm_refund_not_possible_try_again_later">Could not make a refund. Please try again later</item>
+        <item lang="cs" id="2lm_bm_refund_not_possible_try_again_later">Could not make a refund. Please try again later</item>
         <item lang="pl" id="2lm_bm_refund_not_possible_try_again_later">Nie udało się wykonać zwrotu. Spróbuj później</item>
         <item lang="en" id="2lm_bm_refund_wrong_order_or_amount_data">Incorrect order data or invalid refund value</item>
+        <item lang="cs" id="2lm_bm_refund_wrong_order_or_amount_data">Incorrect order data or invalid refund value</item>
         <item lang="pl" id="2lm_bm_refund_wrong_order_or_amount_data">Niepoprawne dane zamówienia lub nieprawidłowa wartość zwrotu</item>
         <item lang="en" id="2lm_bm_cannot_refund_money">Your current balance is [BALANCE_VALUE]. Can't refund a money now. Please, try again later.</item>
+        <item lang="cs" id="2lm_bm_cannot_refund_money">Your current balance is [BALANCE_VALUE]. Can't refund a money now. Please, try again later.</item>
         <item lang="pl" id="2lm_bm_cannot_refund_money">Obecnie Twoje saldo wynosi [BALANCE_VALUE]. Nie można zrealizować teraz zwrotu. Spróbuj proszę później.</item>
         <item lang="en" id="2lm_bm_wrong_input_data">Incorrect input data</item>
+        <item lang="cs" id="2lm_bm_wrong_input_data">Incorrect input data</item>
         <item lang="pl" id="2lm_bm_wrong_input_data">Niepoprawne dane wejściowe</item>
         <item lang="en" id="2lm_bm_enter_blik_code">Enter the BLIK code</item>
+        <item lang="cs" id="2lm_bm_enter_blik_code">Enter the BLIK code</item>
         <item lang="pl" id="2lm_bm_enter_blik_code">Wprowadź kod BLIK</item>
         <item lang="en" id="2lm_bm_label_auto_order_create">Create a recurring order</item>
+        <item lang="cs" id="2lm_bm_label_auto_order_create">Create a recurring order</item>
         <item lang="pl" id="2lm_bm_label_auto_order_create">Stwórz zamówienie cykliczne</item>
         <item lang="en" id="2lm_bm_label_auto_order_pending">Create a recurring order with this (in progress)</item>
+        <item lang="cs" id="2lm_bm_label_auto_order_pending">Create a recurring order with this (in progress)</item>
         <item lang="pl" id="2lm_bm_label_auto_order_pending">Stwórz z tego zamówienie cykliczne (w trakcie)</item>
         <item lang="en" id="2lm_bm_label_auto_order_deactivate">Deactivate recurring order</item>
+        <item lang="cs" id="2lm_bm_label_auto_order_deactivate">Deactivate recurring order</item>
         <item lang="pl" id="2lm_bm_label_auto_order_deactivate">Deaktywuj zamówienie cykliczne</item>
         <item lang="en" id="2lm_bm_exclude_from_recurring_purchases">Exclude product from recurring purchases</item>
+        <item lang="cs" id="2lm_bm_exclude_from_recurring_purchases">Exclude product from recurring purchases</item>
         <item lang="pl" id="2lm_bm_exclude_from_recurring_purchases">Wyklucz produkt z zakupów cyklicznych</item>
         <item lang="en" id="2lm_bm_label_auto_order_translation_list">Recurring purchases - list of translations</item>
+        <item lang="cs" id="2lm_bm_label_auto_order_translation_list">Recurring purchases - list of translations</item>
         <item lang="pl" id="2lm_bm_label_auto_order_translation_list">Zamówienie cykliczne - lista transakcji</item>
         <item lang="en" id="2lm_bm_label_auto_order_activated">Recurring purchases ACTIVATED</item>
+        <item lang="cs" id="2lm_bm_label_auto_order_activated">Recurring purchases ACTIVATED</item>
         <item lang="pl" id="2lm_bm_label_auto_order_activated">Zakupy cykliczne AKTYWOWANE</item>
         <item lang="en" id="2lm_bm_label_auto_order_deactivated">Recurring purchases DEACTIVATED</item>
+        <item lang="cs" id="2lm_bm_label_auto_order_deactivated">Recurring purchases DEACTIVATED</item>
         <item lang="pl" id="2lm_bm_label_auto_order_deactivated">Zakupy cykliczne WYŁĄCZONE</item>
         <item lang="en" id="2lm_bm_label_auto_order_get_payment">Get a charge</item>
+        <item lang="cs" id="2lm_bm_label_auto_order_get_payment">Get a charge</item>
         <item lang="pl" id="2lm_bm_label_auto_order_get_payment">Pobierz należność</item>
-        <item lang="en" id="2lm_bm_msg_auto_deactivation_request_send">Request for deactivation of the service for the current order has been sent to BlueMedia</item>
-        <item lang="pl" id="2lm_bm_msg_auto_deactivation_request_send">Prośba o deaktywację usługi dla bieżącego zamówienia została wysłana do serwisu BlueMedia</item>
+        <item lang="en" id="2lm_bm_msg_auto_deactivation_request_send">Request for deactivation of the service for the current order has been sent to Autopay</item>
+        <item lang="cs" id="2lm_bm_msg_auto_deactivation_request_send">Request for deactivation of the service for the current order has been sent to Autopay</item>
+        <item lang="pl" id="2lm_bm_msg_auto_deactivation_request_send">Prośba o deaktywację usługi dla bieżącego zamówienia została wysłana do serwisu Autopay</item>
         <item lang="en" id="2lm_bm_unexpected_error_occurred">An unexpected error occurred. Please try again or contact the store.</item>
+        <item lang="cs" id="2lm_bm_unexpected_error_occurred">An unexpected error occurred. Please try again or contact the store.</item>
         <item lang="pl" id="2lm_bm_unexpected_error_occurred">Wystąpił nieprzewidziany błąd. Spróbuj ponownie lub skontaktuj się z obsługą sklepu.</item>
         <item lang="en" id="2lm_bm_recurring_purchases">Recurring order</item>
+        <item lang="cs" id="2lm_bm_recurring_purchases">Recurring order</item>
         <item lang="pl" id="2lm_bm_recurring_purchases">Zamówienie abonamentowe</item>
         <item lang="en" id="2lm_bm_suffix_recurring_purchases"> - recurring order</item>
+        <item lang="cs" id="2lm_bm_suffix_recurring_purchases"> - recurring order</item>
         <item lang="pl" id="2lm_bm_suffix_recurring_purchases"> - zamówienie abonamentowe</item>
         <item lang="en" id="2lm_bm_recurring_purchases_instructions"><![CDATA[<br /><div style="width:100%;">You have chosen the option to create a new subscription order, based on the order [LINK_TO_BASE_ORDER] <br /> HERE IS FURTHER DESCRIPTION ... mention of the regulations, etc ... <br /> If you want to cancel this option, click here: [LINK_TO_CLEAR_CART]</div>]]></item>
-        <item lang="pl" id="2lm_bm_recurring_purchases_instructions"><![CDATA[<br /><div style="width:100%;">Wybrałeś opcję utworzenia nowego zamówienia abonamentowego, bazującego na zamówieniu [LINK_TO_BASE_ORDER]<br /> TU CIĄG DALSZY OPISU... wzmianka o regulaminie itp...<br /> Jeśli chcesz zrezygnować z tej opcji kliknij tutaj: [LINK_TO_CLEAR_CART]</div>]]></item>
-        <item lang="en" id="2lm_bm_blik_wrong_code_error_msg">Wygląda na to, iż procesor płatności odrzucił transakcję (możliwa przyczyna - niewłaściwy kod BLIK).<br />Złóż ponownie zamówienie używając poprawnego kodu.</item>
+        <item lang="cs" id="2lm_bm_recurring_purchases_instructions"><![CDATA[<br /><div style="width:100%;">You have chosen the option to create a new subscription order, based on the order [LINK_TO_BASE_ORDER] <br /> HERE IS FURTHER DESCRIPTION ... mention of the regulations, etc ... <br /> If you want to cancel this option, click here: [LINK_TO_CLEAR_CART]</div>]]></item>
+<item lang="pl" id="2lm_bm_recurring_purchases_instructions"><![CDATA[<br /><div style="width:100%;">Wybrałeś opcję utworzenia nowego zamówienia abonamentowego, bazującego na zamówieniu [LINK_TO_BASE_ORDER]<br /> TU CIĄG DALSZY OPISU... wzmianka o regulaminie itp...<br /> Jeśli chcesz zrezygnować z tej opcji kliknij tutaj: [LINK_TO_CLEAR_CART]</div>]]></item>
+        <item lang="en" id="2lm_bm_blik_wrong_code_error_msg">It looks like the payment processor rejected the transaction (possible reason - wrong BLIK code)<br />Replace the order using the correct code.</item>
+        <item lang="cs" id="2lm_bm_blik_wrong_code_error_msg">It looks like the payment processor rejected the transaction (possible reason - wrong BLIK code)<br />Replace the order using the correct code.</item>
         <item lang="pl" id="2lm_bm_blik_wrong_code_error_msg">Wygląda na to, iż procesor płatności odrzucił transakcję (możliwa przyczyna - niewłaściwy kod BLIK).<br />Złóż ponownie zamówienie używając poprawnego kodu.</item>
         <item lang="pl" id="2lm_bm_urls">Adresy URL do konfiguracji bramki płatności</item>
         <item lang="en" id="2lm_bm_urls">URLs to configure the payment gateway</item>
+        <item lang="cs" id="2lm_bm_urls">URLs to configure the payment gateway</item>
         <item lang="pl" id="2lm_bm_url_return">Adres powrotu po płatności</item>
         <item lang="en" id="2lm_bm_url_return">Return URL after payment</item>
+        <item lang="cs" id="2lm_bm_url_return">Return URL after payment</item>
         <item lang="pl" id="2lm_bm_url_itn">Adres, na który jest wysyłany ITN</item>
         <item lang="en" id="2lm_bm_url_itn">The URL to which ITN is sent</item>
+        <item lang="cs" id="2lm_bm_url_itn">The URL to which ITN is sent</item>
         <item lang="pl" id="2lm_bm_url_rpan">Adres, na który jest wysyłany komunikat RPAN</item>
         <item lang="en" id="2lm_bm_url_rpan">The URL to which RPAN is sent</item>
+        <item lang="cs" id="2lm_bm_url_rpan">The URL to which RPAN is sent</item>
         <item lang="pl" id="2lm_bm_url_rpdn">Adres, na który jest wysyłany komunikat RPDN</item>
         <item lang="en" id="2lm_bm_url_rpdn">The URL to which RPDN is sent</item>
+        <item lang="cs" id="2lm_bm_url_rpdn">The URL to which RPDN is sent</item>
         <item lang="pl" id="2lm_bm_pbl">Płatność z banku</item>
         <item lang="en" id="2lm_bm_pbl">Payment from the bank</item>
+        <item lang="cs" id="2lm_bm_pbl">Payment from the bank</item>
 
         <item lang="pl" id="2lm_bm_info_how_to_start">JAK ZACZĄĆ?</item>
         <item lang="en" id="2lm_bm_info_how_to_start">HOW TO START?</item>
@@ -201,8 +280,9 @@
         <item lang="pl" id="2lm_bm_info_commission_of">Prowizja tylko 1,19%</item>
         <item lang="en" id="2lm_bm_info_commission_of">Commission of only 1.19%</item>
         <item lang="cs" id="2lm_bm_info_commission_of">Provize pouze 1,19 %</item>
-
-
+        <item lang="pl" id="2lm_bm_refund_amount_alert">Liczba powinna mieścić się w zakresie od [min] do [max]</item>
+        <item lang="en" id="2lm_bm_refund_amount_alert">Amount should be between [min] and [max]</item>
+        <item lang="cs" id="2lm_bm_refund_amount_alert">Částka by měla být mezi [min] a [max]</item>
     </language_variables>
 
     <settings edition_type="ROOT,ULT:VENDOR">
@@ -219,10 +299,10 @@
                     </item>
                     <item id="allow_select_gateway">
                         <name>Choosing the payment channel when placing an order (WhiteLabel)</name>
-                        <tooltip>After selecting the 'YES' option, available payment channels (payment instruments) will be displayed in the last step of placing the order. When the option is disabled, the payment channels are selected on a dedicated page of the BM System.</tooltip>
+                        <tooltip>After selecting the 'YES' option, available payment channels (payment instruments) will be displayed in the last step of placing the order. When the option is disabled, the payment channels are selected on a dedicated page of the Autopay System.</tooltip>
                         <translations>
                             <item lang="pl" for="name">Wybór kanału płatności podczas składania zamówienia (WhiteLabel)</item>
-                            <item lang="pl" for="tooltip">Po wybraniu opcji 'TAK' w ostatnim kroku składania zamówienia wyświetlone zostaną dostępne kanały płatności (instrumenty płatnicze). Przy wyłączonej opcji, wybór kanałów płatności następuje na dedykowanej stronie Systemu BM.</item>
+                            <item lang="pl" for="tooltip">Po wybraniu opcji 'TAK' w ostatnim kroku składania zamówienia wyświetlone zostaną dostępne kanały płatności (instrumenty płatnicze). Przy wyłączonej opcji, wybór kanałów płatności następuje na dedykowanej stronie Systemu Autopay.</item>
                         </translations>
                         <type>selectbox</type>
                         <default_value>Y</default_value>
@@ -231,12 +311,14 @@
                                 <name>Yes</name>
                                 <translations>
                                     <item lang="pl">Tak</item>
+                                    <item lang="cs">Ano</item>
                                 </translations>
                             </item>
                             <item id="N">
                                 <name>No</name>
                                 <translations>
                                     <item lang="pl">Nie</item>
+                                    <item lang="cs">Ne</item>
                                 </translations>
                             </item>
                         </variants>
@@ -254,12 +336,14 @@
                                 <name>Yes</name>
                                 <translations>
                                     <item lang="pl">Tak</item>
+                                    <item lang="cs">Ano</item>
                                 </translations>
                             </item>
                             <item id="N">
                                 <name>No</name>
                                 <translations>
                                     <item lang="pl">Nie</item>
+                                    <item lang="cs">Ne</item>
                                 </translations>
                             </item>
                         </variants>
@@ -285,12 +369,14 @@
                                 <name>Yes</name>
                                 <translations>
                                     <item lang="pl">Tak</item>
+                                    <item lang="cs">Ano</item>
                                 </translations>
                             </item>
                             <item id="N">
                                 <name>No</name>
                                 <translations>
                                     <item lang="pl">Nie</item>
+                                    <item lang="cs">Ne</item>
                                 </translations>
                             </item>
                         </variants>
@@ -307,12 +393,14 @@
                                 <name>Yes</name>
                                 <translations>
                                     <item lang="pl">Tak</item>
+                                    <item lang="cs">Ano</item>
                                 </translations>
                             </item>
                             <item id="N">
                                 <name>No</name>
                                 <translations>
                                     <item lang="pl">Nie</item>
+                                    <item lang="cs">Ne</item>
                                 </translations>
                             </item>
                         </variants>

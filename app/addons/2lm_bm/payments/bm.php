@@ -7,7 +7,7 @@ if (!defined('BOOTSTRAP')) {
 if (defined('PAYMENT_NOTIFICATION')) {
 
     if ($_REQUEST['payment'] === 'bm') {
-        //------------------------------ NOTYFIKACJE Z SERWERA PŁATNOŚCI BLUEMEDIA -------------------------------------
+        //------------------------------ NOTYFIKACJE Z SERWERA PŁATNOŚCI AUTOPAY -------------------------------------
 
         if ($mode === 'notify') {
 
@@ -28,7 +28,7 @@ if (defined('PAYMENT_NOTIFICATION')) {
                         $recurring_data['clientHash'], 'activated', date('Y-m-d H:i:s'), $order_id
                     );
 
-                    // report to BlueMedia RPAN if message is received ('send' a confirmation)
+                    // report to Autopay RPAN if message is received ('send' a confirmation)
                     $xml_confirm_data = fn_2lm_bm_show_notify_status_data($itnResponse, $order_info, 'rpan');
                     fn_2lm_bm_write_to_log_table($order_id, [$xml_confirm_data], '[CONFIRM RPAN] XML confirmation data');
                     header('HTTP/1.1 200 OK');
@@ -61,7 +61,7 @@ if (defined('PAYMENT_NOTIFICATION')) {
                         }
                     }
 
-                    // report to BlueMedia RPDN if message is received ('send' a confirmation)
+                    // report to Autopay RPDN if message is received ('send' a confirmation)
                     $xml_confirm_data = fn_2lm_bm_show_notify_status_data($rpdnResponse, $order_info, 'rpdn');
                     fn_2lm_bm_write_to_log_table($order_id, [$xml_confirm_data], '[CONFIRM RPDN] XML confirmation data');
                     header('HTTP/1.1 200 OK');
@@ -225,6 +225,7 @@ if (defined('PAYMENT_NOTIFICATION')) {
             }
 
             if (empty($processor_data['processor_params']['statuses'][$bm_response_payment_status])) {
+                fn_2lm_bm_write_to_log_table($processed_order_id, [], 'WARNING: Order status is not mapped for BM status: [' . $bm_response_payment_status . ']');
 //                throw new Exception ('Order status is not mapped for BM status: ' . $bm_response_payment_status);
             }
 
@@ -257,7 +258,7 @@ if (defined('PAYMENT_NOTIFICATION')) {
             $processed_order_id, ['url' => $action_url, 'data' => $form_data], '[PLACE_ORDER] new order: send form to the BM server'
         );
 
-        fn_create_payment_form($action_url, $form_data, 'BlueMedia server', false);
+        fn_create_payment_form($action_url, $form_data, 'Autopay server', false);
         exit;
     }
 

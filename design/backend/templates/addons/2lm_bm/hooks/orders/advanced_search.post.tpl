@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="control-group">
-        <label class="control-label" for="bm_refunds">{__("2lm_bm_refunds")}<br /><span class='muted'>(BlueMedia)</span></label>
+        <label class="control-label" for="bm_refunds">{__("2lm_bm_refunds")}<br /><span class='muted'>({__('2lm_bm')})</span></label>
         <div class="controls">
             <input type="checkbox" name="bm_refunds" id="bm_refunds" value="Y"{if $search.bm_refunds} checked="checked"{/if} />
         </div>
