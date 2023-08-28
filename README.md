@@ -27,54 +27,56 @@ Zostanie wyświetlone nowe okno popup, w którym należy kliknąć w przycisk **
 
 ### Ustawienia ogólne dodatku 
 
-**Wybór kanału płatności podczas składania zamówienia (WhiteLabel)**: gdy wybierzemy „**Tak**”, Klient będzie miał możliwość wybrania kanału płatności podczas składania zamówienia, w przeciwnym razie taka funkcjonalność będzie dostępna dopiero po złożeniu zamówienia, gdy Klient zostanie automatycznie przeniesiony na stronę serwisu Blue Media. 
+**Wybór kanału płatności podczas składania zamówienia (WhiteLabel)**: gdy wybierzemy „**Tak**”, Klient będzie miał możliwość wybrania kanału płatności podczas składania zamówienia, w przeciwnym razie taka funkcjonalność będzie dostępna dopiero po złożeniu zamówienia, gdy Klient zostanie automatycznie przeniesiony na stronę serwisu Autopay. 
 
-**Grupuj po typie bramki**: przy ustawieniu tej opcji na „**Tak**” (w przypadku, gdy postanowimy, iż wybór kanału płatności będzie odbywał się podczas składania zamówienia) lista instrumentów płatniczych dostępnych w systemie płatności Blue Media będzie pogrupowana po typie bramki. Przy odznaczonym grupowaniu kanały płatności będą prezentowane bez uporządkowania według typu. 
+**Grupuj po typie bramki**: przy ustawieniu tej opcji na „**Tak**” (w przypadku, gdy postanowimy, iż wybór kanału płatności będzie odbywał się podczas składania zamówienia) lista instrumentów płatniczych dostępnych w systemie płatności Autopay będzie pogrupowana po typie bramki. Przy odznaczonym grupowaniu kanały płatności będą prezentowane bez uporządkowania według typu. 
+![Wybór kanału płatności podczas składania zamówienia](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/fe79ef72-4248-4967-8b47-314be2cbb935)
 
-![Wybór kanału płatności podczas składania zamówienia](https://user-images.githubusercontent.com/87177993/126763397-ef9b899e-03ea-4ba6-ae1f-8fdbe0ff0ae2.jpg)
 
 Kolejną zakładką w konfiguracji dodatku jest zakładka „**Zamówienia cykliczne**”, zwane też „abonamentowymi”. Dotyczy ona ustawień sklepu odnoszących się do zamówień, za których płatność może być pobierana „automatycznie” co jakiś czas. 
 
-![Zamówienia cykliczne](https://user-images.githubusercontent.com/87177993/126763537-08f70dde-7fe1-490d-b25b-86b7ff965225.jpg)
+![Zamówienia cykliczne](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/ecdd173d-c885-49e6-9838-ad7b5dc2648b)
+
 
 Pierwsza z opcji umożliwia globalne włączenie bądź wyłączenie funkcjonalności zamówień abonamentowych. Druga opcja („**Wyłącz dla zamówień ze zniżkami (promocjami)**”) uniemożliwia stworzenie zamówienia cyklicznego na podstawie złożonego już zamówienia, w którym – ze względu np. na reguły zastosowanych promocji – ceny produktów nie są cenami standardowymi. 
 
-Istnieje jeszcze jedna metoda zablokowania możliwości utworzenia zamówienia cyklicznego. Jeśli nie chcemy, aby jakiś produkt kupiony przez Klienta mógł być objęty zamówieniem abonamentowym, możemy wykluczyć go z tej możliwości edytując dany produkt. Wystarczy na stronie edycji produktu w zakładce „**Dodatki**” ustawić w sekcji „Blue Media” wartość pola „**Wyklucz produkt z zakupów cyklicznych**” na „**Tak**”. Jeśli ów produkt znajdzie się w dowolnym zamówieniu, nie będzie dostępna opcja stworzenia zamówienia cyklicznego. 
+Istnieje jeszcze jedna metoda zablokowania możliwości utworzenia zamówienia cyklicznego. Jeśli nie chcemy, aby jakiś produkt kupiony przez Klienta mógł być objęty zamówieniem abonamentowym, możemy wykluczyć go z tej możliwości edytując dany produkt. Wystarczy na stronie edycji produktu w zakładce „**Dodatki**” ustawić w sekcji „Autopay” wartość pola „**Wyklucz produkt z zakupów cyklicznych**” na „**Tak**”. Jeśli ów produkt znajdzie się w dowolnym zamówieniu, nie będzie dostępna opcja stworzenia zamówienia cyklicznego. 
 
-![Wyklucz produkt z zakupów cyklicznych](https://user-images.githubusercontent.com/87177993/126763771-35ca0234-3489-4029-83a9-486cca348cad.png)
+![Wyklucz produkt z zakupów cyklicznych](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/1745f2d1-d69a-4057-b360-0f2ed0f45387)
 
 Więcej informacji o zamówieniach cyklicznych znajduje się w rozdziale "Działanie dodatku" -> "Zamówienia cykliczne". 
 
 ### Ustawienia metody płatności 
 
-Po instalacji dodatku zostaną automatycznie utworzone i wstępnie skonfigurowane cztery nowe metody płatności: „System płatności BlueMedia”, „Apple Pay”, „Płatność BLIK” oraz „VISA Mobile”. Aby stały się one dostępne w sklepie, konieczne jest dokończenie ich konfiguracji. 
+Po instalacji dodatku zostaną automatycznie utworzone i wstępnie skonfigurowane cztery nowe metody płatności: „System płatności online Autopay”, „Apple Pay”, „Płatność BLIK” oraz „VISA Mobile”. Aby stały się one dostępne w sklepie, konieczne jest dokończenie ich konfiguracji. 
 
 W panelu administracyjnym przechodzimy do sekcji Metody płatności (menu: **Administracja / Metody płatności**), a następnie klikamy w nazwę metody płatności. 
 
-![Metody płatności](https://user-images.githubusercontent.com/87177993/126764249-7c1c43e7-743d-4745-b279-e618a708496c.jpg)
+![Metody płatności](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/158c0a3b-009b-4961-86bc-57d432cb6cb9)
+
 
  Wyświetli się nowa strona z konfiguracją płatności. Przechodzimy w niej do zakładki „**Konfiguruj**”, gdzie możemy dokonać szczegółowych ustawień bramki płatności. 
  
-![Konfiguruj](https://user-images.githubusercontent.com/111113369/219613648-bee98a5d-1932-4959-a32b-d2e560239415.png)
+![Konfiguruj](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/ce3b61e7-f1b3-4286-9f49-8de49d624706)
 
 
-Podstawowa konfiguracja, jaką należy wykonać, to wprowadzenie danych dotyczących ustawień konta Blue Media. Zgodnie z danymi jakie otrzymaliśmy wprowadzamy: „**ID usługi**”, „**Klucz konfiguracyjny (hash)**”, „**Separator**” oraz „**Algorytm**”, jakim jest kodowany hash (domyślnie SHA 256). Dodatkowe opcje, jakie możemy ustawić, to: 
+Podstawowa konfiguracja, jaką należy wykonać, to wprowadzenie danych dotyczących ustawień konta Autopay. Zgodnie z danymi jakie otrzymaliśmy wprowadzamy: „**ID usługi**”, „**Klucz konfiguracyjny (hash)**”, „**Separator**” oraz „**Algorytm**”, jakim jest kodowany hash (domyślnie SHA 256). Dodatkowe opcje, jakie możemy ustawić, to: 
 
 - „**Tryb pracy**”: określa, czy konfigurujemy testowy serwis płatności (a więc możemy dowolnie testować funkcjonalności dodatku), czy serwis produkcyjny. 
-- W polu „**Prefix opisu zamówienia**” istnieje możliwość ustawienia tekstu, który będzie wyświetlany przed numerem zamówienia w danych, jakie są wysyłane do serwisu Blue Media. 
+- W polu „**Prefix opisu zamówienia**” istnieje możliwość ustawienia tekstu, który będzie wyświetlany przed numerem zamówienia w danych, jakie są wysyłane do serwisu Autopay. 
 - „**ID bramki**” - identyfikator domyślnego kanału płatności (wartość opcjonalna). W metodzie płatności „**Apple Pay**” wartość tego parametru jest już wstępnie zdefiniowana. 
 
- Bardzo ważnym etapem konfiguracji jest przeprowadzenie odpowiedniego mapowania statusów zamówień dostępnych w sklepie CS-Cart na statusy serwisu płatności. Można to wykonać w sekcji „Mapowanie statusów BlueMedia => CS-Cart”. Przykładową konfigurację możemy zobaczyć na poniższym obrazku. 
+ Bardzo ważnym etapem konfiguracji jest przeprowadzenie odpowiedniego mapowania statusów zamówień dostępnych w sklepie CS-Cart na statusy serwisu płatności. Można to wykonać w sekcji „Mapowanie statusów Autopay => CS-Cart”. Przykładową konfigurację możemy zobaczyć na poniższym obrazku. 
 
-![Mapowanie statusów BlueMedia](https://user-images.githubusercontent.com/87177993/126765596-8eb1a832-eabe-431c-a542-f80c63201425.jpg)
+![Mapowanie statusów Autopay](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/5318f85b-c5c6-4b44-83c0-b21ac5fa6083)
 
-Na samym dole zakładki „Konfiguruj” znajdują się automatycznie wygenerowane adresy URL do konfiguracji bramki płatności w Systemie Płatności Online BM. 
+Na samym dole zakładki „Konfiguruj” znajdują się automatycznie wygenerowane adresy URL do konfiguracji bramki płatności w Systemie Płatności Online Autopay. 
 
 ![Adresy URL do konfiguracji bramki płatności](https://user-images.githubusercontent.com/87177993/126765735-019dfe85-b1b2-495d-84a6-a96cf19e8ece.jpg)
 
-Czynności opisane powyżej powtarzamy dla każdej z trzech predefiniowanych metod płatności Blue Media. 
+Czynności opisane powyżej powtarzamy dla każdej z trzech predefiniowanych metod płatności Autopay. 
 
-Po skończonej konfiguracji, jeśli metody płatności Blue Media nie są aktywne, włączamy je wywołując odpowiednie polecenie w menu podręcznym. 
+Po skończonej konfiguracji, jeśli metody płatności Autopay nie są aktywne, włączamy je wywołując odpowiednie polecenie w menu podręcznym. 
 
 ![Aktywacja](https://user-images.githubusercontent.com/87177993/126765846-38f889d3-ddf3-451f-a650-8550ae66278c.jpg)
 
@@ -84,7 +86,7 @@ Istnieje również możliwość stworzenia dodatkowych metod płatności dla ust
 
 ![Dodaj metodę płatności](https://user-images.githubusercontent.com/87177993/126765980-a4d731c7-bc60-4616-8192-b5bd08126976.jpg)
 
-2. W zakładce „**Główne**” wyświetlonego formularza określić nazwę metody płatności oraz wybrać serwis obsługujący Blue Media: 
+2. W zakładce „**Główne**” wyświetlonego formularza określić nazwę metody płatności oraz wybrać serwis obsługujący "BlueMedia": 
 
 ![Nazwa metody płatności](https://user-images.githubusercontent.com/87177993/126766105-1bcbc819-fc9a-4764-baf9-73e41f766023.jpg)
 
@@ -92,27 +94,32 @@ Istnieje również możliwość stworzenia dodatkowych metod płatności dla ust
 
 ![Ustawienie logotypu metody płatności](https://user-images.githubusercontent.com/87177993/126766231-ff2424a9-d01b-4ea8-a339-9161e2f01806.jpg)
 
-4.	W 	zakładce 	„**Konfiguruj**” 	należy 	ustawić 	konfigurację 	metody 	płatności analogicznie jak dla pozostałych metod płatności Blue Media. Dodatkowo należy ustawić wartość pola „**ID bramki**” podając identyfikator wybranego kanału płatności (np. dla kart kredytowych – wartość 1500). Lista identyfikatorów kanałów płatności znajduje się w dokumentacji integracji bramki płatności Blue Media. 
+Link do strony zawierającej logotypy do pobrania można znaleźć w popupie sekcji konfiguracji dodatku.
+
+4.	W 	zakładce 	„**Konfiguruj**” 	należy 	ustawić 	konfigurację 	metody 	płatności analogicznie jak dla pozostałych metod płatności Autopay. Dodatkowo należy ustawić wartość pola „**ID bramki**” podając identyfikator wybranego kanału płatności (np. dla kart kredytowych – wartość 1500). Lista identyfikatorów kanałów płatności znajduje się w dokumentacji integracji bramki płatności Autopay. 
 
 ### Ustawienia dotyczące produktów 
 
 Jeśli w konfiguracji dodatku mamy włączoną funkcjonalność zamówień cyklicznych i chcemy, by Klienci nie mieli możliwości kupowania w abonamencie określonych towarów dostępnych w ofercie sklepu, istnieje możliwość wykluczenia ich z mechanizmu zamówień cyklicznych. Działa to na takiej zasadzie, że jeśli w zamówieniu Klienta znajdzie się chociaż jeden produkt wykluczony z zamówień cyklicznych, system blokuje możliwość utworzenia takiego zamówienia. Na poniższym obrazku można zobaczyć, w jaki sposób wykluczyć produkt z zamówień cyklicznych podczas jego edycji.
 
-![Wyklucz produkt z zakupów cyklicznych](https://user-images.githubusercontent.com/87177993/126763771-35ca0234-3489-4029-83a9-486cca348cad.png)
+![Wyklucz produkt z zakupów cyklicznych](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/3118be9e-2831-4d4f-b255-7549a274ee1a)
+
+
 
 ## Działanie dodatku 
 
 ### Wybór formy płatności przy składaniu zamówienia 
 
-Klient podczas składania zamówienia może wybrać jedną z dostępnych form płatności. Jeśli skonfigurowaliśmy poprawnie nasz dodatek, na liście form płatności pojawi się pozycja „**System płatności BlueMedia**”. Po jej zaznaczeniu pod listą opcji płatności może pojawić się dodatkowa sekcja z listą metod płatności udostępnianych przez serwis Blue Media. Jest to zależne od konfiguracji dodatku. 
+Klient podczas składania zamówienia może wybrać jedną z dostępnych form płatności. Jeśli skonfigurowaliśmy poprawnie nasz dodatek, na liście form płatności pojawi się pozycja „**System płatności Autopay**”. Po jej zaznaczeniu pod listą opcji płatności może pojawić się dodatkowa sekcja z listą metod płatności udostępnianych przez serwis Autopay. Jest to zależne od konfiguracji dodatku. 
 
-![System płatności BlueMedia](https://user-images.githubusercontent.com/87177993/126767318-334e2a8a-7367-4257-bc85-68ea26d6fd04.jpg)
+![System płatności Autopay](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/87b0e6bb-870f-48fc-9f35-48c04d8f9669)
+
 
 W przypadku, gdy w ustawieniach dodatku nie wybraliśmy opcji grupowania po typie bramki, lista ta może wyglądać trochę inaczej:
 
-![Grupowanie metod płatności](https://user-images.githubusercontent.com/87177993/126767824-62c49bd5-2daa-4977-8d16-b8accab12f9c.jpg)
+![Grupowanie metod płatnośc](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/55676302-9ee2-4b3d-a327-ca736440f367)
 
-Wybranie odpowiedniej formy płatności zaznaczane jest odpowiednią ramką. W przypadku kliknięcia w płatność BLIK’iem, poniżej listy pojawi się dodatkowe pole umożliwiające wprowadzenie kodu BLIK (Jeśli na liście nie ma tej formy płatności, skontaktuj się ze swoim opiekunem biznesowym Blue Media).
+Wybranie odpowiedniej formy płatności zaznaczane jest odpowiednią ramką. W przypadku kliknięcia w płatność BLIK’iem, poniżej listy pojawi się dodatkowe pole umożliwiające wprowadzenie kodu BLIK (Jeśli na liście nie ma tej formy płatności, skontaktuj się ze swoim opiekunem biznesowym Autopay).
 
 ### Informacje o płatnościach 
 
@@ -124,7 +131,7 @@ W przypadku opłaconych zamówień istnieje możliwość wykonania zwrotu wpłac
 
 ![Zwrot płatności](https://user-images.githubusercontent.com/87177993/126768616-0dd0cae5-62a7-40af-bdaf-52e683f4a8d2.jpg)
 
-Po kliknięciu w przycisk, wyświetli się dodatkowe pytanie zabezpieczające, czy faktycznie chcemy wykonać tę operację. Po twierdzącej odpowiedzi może pojawić się jeden z dwóch popupów. W przypadku, gdy saldo na koncie Blue Media jest niewystarczające, nie można wykonać zwrotu. Zostanie wówczas wyświetlona informacja taka, jak na poniższym obrazku. 
+Po kliknięciu w przycisk, wyświetli się dodatkowe pytanie zabezpieczające, czy faktycznie chcemy wykonać tę operację. Po twierdzącej odpowiedzi może pojawić się jeden z dwóch popupów. W przypadku, gdy saldo na koncie Autopay jest niewystarczające, nie można wykonać zwrotu. Zostanie wówczas wyświetlona informacja taka, jak na poniższym obrazku. 
 
 ![Obecnie Twoje saldo wynosi 0](https://user-images.githubusercontent.com/87177993/126768781-f4a73e66-de50-4392-8823-15eb084684e4.jpg)
 
@@ -136,7 +143,7 @@ Po poprawnym wykonaniu zwrotu na stronie szczegółów zamówienia zostanie wyś
 
 ![Panel informacji dotyczących operacji związanych ze zwrotem](https://user-images.githubusercontent.com/87177993/126769040-af1589e1-5845-4d9f-a47f-018c6b73777b.jpg)
 
-W celu znalezienia zamówień, w których został wykonany zwrot płatności w systemie Blue Media, należy skorzystać z zaawansowanej wyszukiwarki zamówień. W panelu administracyjnym przechodzimy do sekcji Zamówienia (w menu „**Zamówienia / Zobacz zamówienia**” i klikamy w opcję „**Wyszukiwanie zaawansowane**” (prawa kolumna na dole). Zostanie wyświetlane nowe okno typu popup, w którym zaznaczamy opcję „**Zwrot płatności (Blue Media)**” i klikamy w przycisk „**Szukaj**”. Pojawi się lista tylko tych zamówień, w których dokonano zwrotu płatności. 
+W celu znalezienia zamówień, w których został wykonany zwrot płatności w systemie Autopay, należy skorzystać z zaawansowanej wyszukiwarki zamówień. W panelu administracyjnym przechodzimy do sekcji Zamówienia (w menu „**Zamówienia / Zobacz zamówienia**” i klikamy w opcję „**Wyszukiwanie zaawansowane**” (prawa kolumna na dole). Zostanie wyświetlane nowe okno typu popup, w którym zaznaczamy opcję „**Zwrot płatności (Autopay)**” i klikamy w przycisk „**Szukaj**”. Pojawi się lista tylko tych zamówień, w których dokonano zwrotu płatności. 
 
 ### Zamówienia cykliczne 
 
@@ -154,7 +161,7 @@ W panelu administracyjnym po przejściu do sekcji Zamówienia, wyświetlana jest
 
 ![Zamówienia abonamentowe](https://user-images.githubusercontent.com/87177993/126770484-778d19a3-d59e-45a9-8526-b405573e1999.jpg)
 
-Dodatkowo w tej kolumnie jest pokazywany bieżący status takiego zamówienia (*pending* - w trakcie tworzenia, *activated* - zamówienie cykliczne potwierdzone od strony serwisu Blue Media, *disactivated* - funkcjonalność wyłączona przez Klienta lub Administratora sklepu). 
+Dodatkowo w tej kolumnie jest pokazywany bieżący status takiego zamówienia (*pending* - w trakcie tworzenia, *activated* - zamówienie cykliczne potwierdzone od strony serwisu Autopay, *disactivated* - funkcjonalność wyłączona przez Klienta lub Administratora sklepu). 
  
 Pobierając opłatę za zamówienie abonamentowe automatycznie tworzone jest nowe zamówienie (będące kopią zamówienia bazowego), do którego ściągana jest odpowiednia należność. Informację o tym, iż dane zamówienie jest kopią zamówienia abonamentowego zobaczymy w tej samej kolumnie. Przy takich zamówieniach będzie wyświetlany tekst “**Zamówienie bazowe: X**” (gdzie X to numer zamówienia, do którego się ono odnosi). 
 
@@ -171,3 +178,23 @@ Dodatkowo w sekcji “**Dodatki**” zamówienia bazowego, wyświetlana jest lis
 W przypadku zamówień będących kopiami zamówienia bazowego, w tej samej zakładce “**Dodatki**” można znaleźć informację dotyczącą z którym zamówieniem jest ono powiązane (obrazek poniżej). 
 
 ![Zakupy cykliczne - informacja o zamówieniu bazowym](https://user-images.githubusercontent.com/87177993/126771022-ee1b7330-64c7-4643-a83e-03af329e3b00.jpg)
+
+## Dodatkowe informacje
+
+### Aktualizacja dodatku
+
+W przypadku aktualizacji dodatku w CS-Cart z wersji mniejszej lub równej niż v2.8.4 do wersji v.2.8.5 są wymagane dodatkowe czynności do zrealizowania.
+
+Po pobraniu nowej wersji dodatku, należy wgrać pliki dodatku na swój serwer zastępując pliki wcześniejszej wersji. Następnym krokiem jest wywołanie opcji "Odświeżenia" dodatku (na stronie z listą dodatków, przy dodatku "2LM: System płatności BlueMedia", z dropdown'a dostępnego obok nazwy należy wybrać opcję "Odśwież").
+
+![Wybór opcji Odśwież](https://github.com/bluepayment-plugin/cs-cart/assets/111113369/cab3a8e4-bbf3-40c4-9b7f-6354cca5673a)
+
+W przypadku, gdy opcja "Odśwież" nie będzie widoczna w dropdown'ie, należy w pliku config.php Cs-Carta, znaleźć linię z kodem
+
+//define('DEVELEPMENT', true);
+
+i usunąć z przodu znaki '//'. Następnie należy odświeżyć stronę z listą dodatków i wybrać opcję "Odśwież" opisaną powyżej.
+
+Po skończonej aktualizacji dodatek zmieni nazwę na "2LM: Płatności online Autopay". W przypadku, gdy była konieczność modyfikacji pliku config.php, należy cofnąć wcześniej wykonane zmiany.
+
+W przypadku świeżej instalacji dodatku w wersji v2.8.5 (lub wyższej), powyższe czynności nie są wymagane.
