@@ -6,7 +6,7 @@
         </div>
         <div class="column2">
             <span class="thicker"><img src="{$images_dir}/addons/2lm_bm/thick3.png" height="15" alt="" /></span>
-            <a href="https://portal.autopay.eu/e2b19483-7643-418d-a66e-6bc1516f569b/?pk_campaign=cscart_panel&pk_source=cscart_panel&pk_medium=cta" target="_blank">{__('2lm_bm_info_commission_of')}</a>
+            <a href="https://portal.autopay.eu/?pk_campaign=cscart_panel&pk_source=cscart_panel&pk_medium=cta" target="_blank">{__('2lm_bm_info_commission_of')}</a>
         </div>
         <div class="column3">
             <span class="thicker"><img src="{$images_dir}/addons/2lm_bm/thick3.png" height="15" alt="" /></span>
@@ -17,7 +17,7 @@
         <div class="step1">
             <span class="circle">1</span>
             {__('2lm_bm_info_create_account')}
-            <a href="https://portal.autopay.eu/e2b19483-7643-418d-a66e-6bc1516f569b/?pk_campaign=cscart_panel&pk_source=cscart_panel&pk_medium=cta" target="_blank">{__('2lm_bm_info_register')}</a>
+            <a href="https://portal.autopay.eu/?pk_campaign=cscart_panel&pk_source=cscart_panel&pk_medium=cta" target="_blank">{__('2lm_bm_info_register')}</a>
         </div>
         <div class="step2">
             <span class="circle">2</span>
