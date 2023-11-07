@@ -10,7 +10,7 @@
         </div>
         <div class="column3">
             <span class="thicker"><img src="{$images_dir}/addons/2lm_bm/thick3.png" height="15" alt="" /></span>
-            {__('2lm_bm_info_prepare_shop_regulations')}<br ><a href="https://developers.autopay.pl/legal-geek?mtm_campaign=cscart_legalgeek&mtm_source=cscart_backoffice&mtm_medium=cta" target="_blank">{__('2lm_bm_info_find_out_more')}</a>
+            {__('2lm_bm_info_prepare_shop_regulations')}<br ><a href="https://marketplace.autopay.pl/" target="_blank">{__('2lm_bm_info_find_out_more')}</a>
         </div>
     </div>
     <div class="steps">
