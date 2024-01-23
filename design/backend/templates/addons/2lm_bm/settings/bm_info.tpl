@@ -6,7 +6,7 @@
         </div>
         <div class="column2">
             <span class="thicker"><img src="{$images_dir}/addons/2lm_bm/thick3.png" height="15" alt="" /></span>
-            <a href="https://portal.autopay.eu/?pk_campaign=cscart_panel&pk_source=cscart_panel&pk_medium=cta" target="_blank">{__('2lm_bm_info_commission_of')}</a>
+            {__('2lm_bm_info_commission_of')}
         </div>
         <div class="column3">
             <span class="thicker"><img src="{$images_dir}/addons/2lm_bm/thick3.png" height="15" alt="" /></span>
@@ -17,7 +17,7 @@
         <div class="step1">
             <span class="circle">1</span>
             {__('2lm_bm_info_create_account')}
-            <a href="https://portal.autopay.eu/?pk_campaign=cscart_panel&pk_source=cscart_panel&pk_medium=cta" target="_blank">{__('2lm_bm_info_register')}</a>
+            <a href="https://portal.autopay.eu/" target="_blank">{__('2lm_bm_info_register')}</a>
         </div>
         <div class="step2">
             <span class="circle">2</span>
@@ -28,7 +28,7 @@
             {__('2lm_bm_info_set_up_payments')}
         </div>
     </div>
-    <div class="read-more"><a href="https://developers.autopay.pl/online/wdrozenie-krok-po-kroku?mtm_campaign=cscart_developers_aktywacja_platnosci&mtm_source=cscart_backend&mtm_medium=hyperlink" target="_blank">{__('2lm_bm_info_find_out_more')}</a> {__('2lm_bm_info_find_out_more_rest')}</div>
+    <div class="read-more"><a href="https://developers.autopay.pl/online/wdrozenie-krok-po-kroku" target="_blank">{__('2lm_bm_info_find_out_more')}</a> {__('2lm_bm_info_find_out_more_rest')}</div>
     <div class="read-more">Nasze elementy graficzne do wstawienia w Twoim sklepie możesz pobrać stąd: <a href="https://developers.autopay.pl/online/grafiki" target="_blank">{__('download')}</a></div>
 </div>
 <script type="text/javascript">

@@ -277,9 +277,9 @@
         <item lang="pl" id="2lm_bm_info_prepare_shop_regulations">Przygotuj regulamin sklepu 10% taniej.</item>
         <item lang="en" id="2lm_bm_info_prepare_shop_regulations">Prepare shop regulations 10% off.</item>
         <item lang="cs" id="2lm_bm_info_prepare_shop_regulations">Připravte si předpisy obchodu 10% sleva.</item>
-        <item lang="pl" id="2lm_bm_info_commission_of">Opłata od transakcji<br />tylko 1,19% + 0,25 zł </item>
-        <item lang="en" id="2lm_bm_info_commission_of">Transaction fee of only<br /> 1.19% + 0.25 PLN</item>
-        <item lang="cs" id="2lm_bm_info_commission_of">Transakční poplatek<br />pouze 1,19 % + 0,25 PLN</item>
+        <item lang="pl" id="2lm_bm_info_commission_of">Opłata od transakcji <br />tylko 1,19% + 0,25 zł </item>
+        <item lang="en" id="2lm_bm_info_commission_of">Transaction fee of only <br /> 1.19% + 0.25 PLN</item>
+        <item lang="cs" id="2lm_bm_info_commission_of">Transakční poplatek <br />pouze 1,19 % + 0,25 PLN</item>
         <item lang="pl" id="2lm_bm_refund_amount_alert">Liczba powinna mieścić się w zakresie od [min] do [max]</item>
         <item lang="en" id="2lm_bm_refund_amount_alert">Amount should be between [min] and [max]</item>
         <item lang="cs" id="2lm_bm_refund_amount_alert">Částka by měla být mezi [min] a [max]</item>
