@@ -17,7 +17,7 @@
                 <input type="text" maxlength="6" name="payment_blik_code" value="" id="blik_code" />
             </div>
         {else}
-            {if !$payment_method.processor_params.gateway_id}
+            {if !$payment_method.processor_params.gateway_id && $addons['2lm_bm']['allow_select_gateway'] == 'Y'}
             {assign var="gateway_ids" value=fn_2lm_bm_get_gateway_ids()}
 
             {* Wybór form płatności online BM *}
