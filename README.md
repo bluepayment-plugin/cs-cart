@@ -1,4 +1,4 @@
-# Instrukcja instalacji oraz obsługi wtyczki dla platformy CS-Cart
+# Instrukcja dla modułu CS-Cart: „Płatności online Autopay”
 
 ## Podstawowe informacje
 
