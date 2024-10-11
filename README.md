@@ -1,4 +1,4 @@
-# Instrukcja dla modułu CS-Cart: „Płatności online Autopay”
+# Instrukcja dla modułu CS-Cart: "Płatności online Autopay"
 
 ## Podstawowe informacje
 
